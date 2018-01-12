@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ColorConverter from './ColorConverter/ColorConverter';
 import { getTextColor, hexToString } from './core/index';
+import Nav from './Nav/Nav';
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class App extends Component {
             textColor: getTextColor(c)
           })
         }}/>
+        <Nav />
       </div>
     );
   }
