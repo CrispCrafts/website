@@ -1,4 +1,4 @@
-![Logo](./assets/icon.svg)
+![Logo](./assets/icon.png)
 
 # Colors
 
