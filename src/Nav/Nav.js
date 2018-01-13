@@ -9,11 +9,14 @@ class Nav extends Component {
     render () {
         return(
             <div className="nav-container">
-                <div><i className="material-icons">cached</i></div>
-                <div><i className="material-icons">palette</i></div>
+                
             </div>
         );
     }
 }
 
+/*
+<div><i className="material-icons">cached</i></div>
+<div><i className="material-icons">palette</i></div>
+*/
 export default Nav;

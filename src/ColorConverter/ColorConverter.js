@@ -71,13 +71,13 @@ class ColorConverter extends Component {
                 <input
                     spellCheck="false"
                     type="text"
-                    placeholder="HEX"
+                    placeholder="#HEX"
                     value={this.state.hex}
                     onChange={this.handleHEXChange} />
                 <input
                     spellCheck="false"
                     type="text"
-                    placeholder="RGB"
+                    placeholder="(R,G,B)"
                     value={this.state.rgb}
                     onChange={this.handleRGBChange} />
             </div>

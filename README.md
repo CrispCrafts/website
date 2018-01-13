@@ -1,6 +1,6 @@
-![Logo](./assets/icon.png)
+![Logo](./src/images/logo.png)
 
-# Colors
+# Colors 
 
 A website made up of useful color tools
 
@@ -9,3 +9,6 @@ A website made up of useful color tools
 * convert RGB -> HEX
 * convert HEX -> RGB
 
+### Color Picker
+
+### Color Palette

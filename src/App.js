@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import ColorConverter from './ColorConverter/ColorConverter';
+import AppToolbar from './AppToolbar/AppToolbar';
+import AppFooter from './AppFooter/AppFooter';
 import { getTextColor, hexToString } from './core/index';
 import Nav from './Nav/Nav';
 
@@ -17,21 +19,26 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" style={{background: this.state.color || this.state.defaultColor, color: this.state.textColor, transition: `all ${this.state.animationSpeed} ease-out`}}>
-        <ColorConverter onColorChanged={(c) => {
-          if(!c) {
+      <div className="App" style={{ color: this.state.textColor }}>
+        <div className="app-container" style={{ backgroundColor: this.state.color || this.state.defaultColor, transition: `all ${this.state.animationSpeed} ease-out` }}>
+          <AppToolbar title="Color"/>
+          <ColorConverter onColorChanged={(c) => {
+            if(!c) {
+              this.setState({
+                color: this.state.defaultColor,
+                textColor: getTextColor(this.state.defaultColor)
+              });
+              return;
+            }
+
             this.setState({
-              color: this.state.defaultColor,
-              textColor: getTextColor(this.state.defaultColor)
+              color: hexToString(c),
+              textColor: getTextColor(c)
             });
-            return;
-          }
-          this.setState({
-            color: hexToString(c),
-            textColor: getTextColor(c)
-          })
-        }}/>
-        <Nav />
+          }}/>
+          <Nav />
+          <AppFooter />
+        </div>
       </div>
     );
   }
