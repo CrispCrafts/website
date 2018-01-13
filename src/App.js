@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
-import logo from './chip.png';
 import './App.css';
+import ColorConverter from './ColorConverter/ColorConverter';
+import { getTextColor, hexToString } from './core/index';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: '',
+      defaultColor: '#E53935',
+      textColor: getTextColor('#E53935'),
+      animationSpeed: '100ms'
+    };
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">CrispCrafts</h1>
-        </header>
-        <p className="App-intro">
-          Site Coming Soon...
-          <br/>
-          <a href="http://colors.crispcrafts.com">color-picker</a>
-          <br/>
-          <a href="http://reactive-mirror.crispcrafts.com">reactive-mirror</a>
-        </p>
+      <div className="App" style={{background: this.state.color || this.state.defaultColor, color: this.state.textColor, transition: `all ${this.state.animationSpeed} ease-out`}}>
+        <ColorConverter onColorChanged={(c) => {
+          if(!c) {
+            this.setState({
+              color: this.state.defaultColor,
+              textColor: getTextColor(this.state.defaultColor)
+            });
+            return;
+          }
+          this.setState({
+            color: hexToString(c),
+            textColor: getTextColor(c)
+          })
+        }}/>
       </div>
     );
   }
