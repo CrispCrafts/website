@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import keyCodes from '../HTMLCodes/keycodes';
+import keyCodes from '../KeyCodes/core';
 import './Key.css';
 
 class Key extends Component {

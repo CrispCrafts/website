@@ -2,10 +2,6 @@
   background: #E53935;
   height: 100vh;
   width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  flex-direction: column;
+  overflow: hidden;
   font-family: inherit;
 }

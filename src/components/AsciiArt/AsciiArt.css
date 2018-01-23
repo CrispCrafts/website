@@ -1,0 +1,43 @@
+.fig-container {
+    text-align: left;
+    padding-top: 64px;
+    background: rgb(184, 46, 44);
+    height: calc(100vh - 154px);
+    overflow: auto;
+}
+
+.font-options {
+    display: flex;
+    flex-direction: row;
+    padding-left: 24px;
+    padding-right: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.font-option {
+    padding-right: 24px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.font-option i {
+    margin-right: 12px;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: rgba(0,0,0,0.8);
+}
+
+.line-number-position {
+  position: relative;
+  top: 0;
+}
+
+.line-number {
+  position: absolute;
+  text-align: right;
+  right: 17px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 12px;
+}

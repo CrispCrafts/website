@@ -1,0 +1,21 @@
+.item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 50px;
+    text-align: center;
+    margin: 8px 12px;
+}
+
+.item-title {
+    padding-top: 8px;
+    display: none;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

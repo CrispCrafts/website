@@ -7,3 +7,30 @@ body {
   padding: 0;
   font-family: 'Inconsolata', monospace !important;
 }
+
+html {
+  box-sizing: border-box;
+  position: relative;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+*::selection {
+  background: #FFEB3B; /* WebKit/Blink Browsers */
+}
+
+*::-webkit-scrollbar{
+  width: 10px;
+}
+
+*::-webkit-scrollbar-thumb{
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-corner { 
+  background: rgba(0,0,0,0); 
+}

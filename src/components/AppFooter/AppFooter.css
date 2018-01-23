@@ -1,14 +1,15 @@
 .footerContainer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 75px;
+    height: 48px;
     padding-left: 24px;
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 -1px 0px 1px rgba(0, 0, 0, 0.2);
 }
 
 .footerCopy {
@@ -20,5 +21,5 @@
 
 .title {
     padding-left: 12px;
-    font-size: 24px;
+    font-size: 18px;
 }

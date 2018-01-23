@@ -1,0 +1,45 @@
+.ascii-container {
+    text-align: center;
+    max-height: calc(100vh - 154px);
+    position: relative;
+}
+
+.grid-container {
+    padding-top: 64px;
+    background: rgb(184, 46, 44);
+    height: calc(100vh - 154px);
+    overflow: auto;
+}
+
+.ascii-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    padding:24px;
+    margin: 0 auto;
+}
+
+.input-section {
+    padding-left: 24px;
+    padding-right: 24px;
+    position: fixed;
+    margin-top: 0;
+    width: 100%;
+    background: #E53935;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.default {
+    height: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-size: 20px;
+}

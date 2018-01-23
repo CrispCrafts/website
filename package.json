@@ -3,11 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ascii-art": "^1.4.2",
+    "classnames": "^2.2.5",
+    "cool-ascii-faces": "^1.3.4",
+    "figlet": "^1.2.0",
     "font-awesome": "^4.7.0",
+    "he": "^1.1.1",
     "material-design-icons": "^3.0.1",
+    "material-ui": "^0.20.0",
     "react": "^16.2.0",
+    "react-color": "^2.13.8",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "react-scripts": "1.1.0",
+    "react-waypoint": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
