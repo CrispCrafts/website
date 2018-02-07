@@ -11,19 +11,41 @@
  * the linting exception.
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import HomePage from '../HomePage/Loadable';
+import NotFoundPage from '../NotFoundPage/Loadable';
+import AppBar, { NavItems, NavItem } from '../../components/AppBar';
+import AppFooter from '../../components/AppFooter';
+import AppPage from '../../components/AppPage';
 
-export default function App() {
-  return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </div>
-  );
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedPage: 0,
+      theme: '#D32F2F',
+    };
+  }
+
+  render() {
+    const AppContainer = styled.div`
+      overflow: hidden;
+    `;
+
+    return (
+      <AppContainer>
+        <AppBar selected={this.state.selectedPage} />
+        <AppPage style={{ background: this.state.theme }}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </AppPage>
+        <AppFooter />
+      </AppContainer>
+    );
+  }
 }
