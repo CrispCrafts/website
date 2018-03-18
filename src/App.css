@@ -1,0 +1,105 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: #E53935;
+}
+
+.App-logo {
+  height: 120px;
+}
+
+.Name {
+  margin-bottom: 0;
+  color: #FFF176;
+}
+
+.Statement{
+  margin: 0;
+}
+
+.App-header {
+  padding: 20px;
+  color: white;
+}
+
+.App-header h4{
+  color: #EF9A9A;
+  margin: 0;
+}
+
+.App-title {
+  margin: 0;
+  color: #FFF176;
+}
+
+.App-intro {
+  color: #FFCDD2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: center;
+}
+
+.PS{
+  color: #FFCDD2;
+  margin: 0;
+  padding-bottom: 12px;
+}
+
+.Section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.3em;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
+.Section h1 {
+  color: white;
+  margin: 0px;
+  margin-bottom: 12px;
+  font-size: 1.3em;
+}
+
+.social a {
+  margin: 0;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding: 24px;
+}
+
+a {
+  font-style: normal;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 20px;
+}
+
+a:hover {
+  color: #FFF176;
+}
+
+.social{
+  color: #EF9A9A;
+  padding-top: 24px;
+}
+
+.highlight{
+  color: #FFF176;
+}
+
+.copy{
+  padding: 24px;
+  color: #EF9A9A;
+}
