@@ -8,78 +8,91 @@ export default class CraftCard extends React.PureComponent { // eslint-disable-l
       margin: 0 auto;
       overflow: hidden;
       color: ${this.props.color};
-      max-width: 300px;
-      width: 100%;
+      background: ${this.props.themeColor};
+      width: 250px;
+      height: 350px;
       margin-bottom: 24px;
       border-radius: 4px;
       box-shadow: 0px 1px 5px rgba(0,0,0,0.4);
+      position: relative;
+      cursor: pointer;
     `;
 
     const TitleBar = styled.div`
-      height: 50px;
-      padding: 0 12px;
       display: flex;
       align-content: center;
       align-items: flex-start;
       justify-content: center;
       flex-direction: column;
-      border-top-right-radius: 4px;
-      border-top-left-radius: 4px;
-      border-bottom: 1px solid rgba(0,0,0,0.5);
-      background: ${this.props.themeColor};
+      padding-bottom: 12px;
     `;
 
     const Title = styled.div`
-      font-size: 16px;
+      font-size: 1.5em;
+      font-weight: bolder;
+    `;
+
+    const Horizontal = styled.hr`
+      background-color: #FFEB3B;
+      width: 50px;
+      margin: 3px 0;
+      height: 3px;
+      border: 0;
     `;
 
     const SubTitle = styled.div`
-      font-size: 12px;
+      font-size: 1em;
+      font-weight: bold;
     `;
 
     const Image = styled.div`
-      width: 100%;
-      height: 300px;
-      background-position: cover;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      transition: all 200ms ease-in;
+      background-position: center;
+      background-size: cover;
       background-repeat: none;
-      background-color: #424242;
-      background-image: url(${this.props.src});
+      opacity: 0.8;
+      background-image: linear-gradient(to top, rgba(198, 40, 40, 0.7), rgba(0,0,0,0)), url(${this.props.src});
+      ${Wrapper}:hover & {
+        transform: scale(1.2);
+        opacity: 1;
+      }
     `;
 
     const Content = styled.div`
-      width: 100%;
       padding: 12px;
-      border-top: 1px solid rgba(0,0,0,0.5);
-      background: ${this.props.themeColor};
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
     `;
 
     const Summary = styled.div`
       font-size: 16px;
-    `;
-
-    const Actions = styled.div`
-      display: flex;
-      align-content: center;
-      align-items: center;
-      justify-content: flex-end;
+      overflow: hidden;
+      text-overflow: ellipsis;
     `;
 
     return (
       <Wrapper>
-        <TitleBar>
-          <Title>
-            {this.props.title}
-          </Title>
-          <SubTitle>
-            {this.props.subTitle}
-          </SubTitle>
-        </TitleBar>
         <Image />
         <Content>
+          <TitleBar>
+            <Title>
+              {this.props.title}
+            </Title>
+            <Horizontal />
+            <SubTitle>
+              {this.props.subTitle}
+            </SubTitle>
+          </TitleBar>
           <Summary>{this.props.synopsis}</Summary>
-          <Actions>{this.props.actions}</Actions>
         </Content>
       </Wrapper>
     );
@@ -90,8 +103,8 @@ CraftCard.defaultProps = {
   title: 'Title',
   subTitle: '',
   synopsis: 'summary',
-  themeColor: '#5F6368',
-  textColor: '#3C4043',
-  color: 'white',
+  themeColor: '#C62828',
+  textColor: '#212121',
+  color: '#fff',
   actions: null,
 };

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import chip from '../../images/chip.png';
 import NavItems from './NavItems';
 import NavItem from './NavItem';
-import CraftSelector from './CraftSelector';
+import CraftSelector from 'components/CraftSelector';
 
 export default class AppBar extends Component {
   constructor(props) {
@@ -12,7 +12,6 @@ export default class AppBar extends Component {
     this.state = {
       fixedNav: false,
     };
-    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -23,12 +22,12 @@ export default class AppBar extends Component {
     window.removeEventListener('scroll', this.handleScroll, false);
   }
 
-  handleScroll() {
-    if (window.scrollY > 60 && !this.state.fixedNav) {
+  handleScroll = () => {
+    if (window.scrollY > this.props.fixedPosition && !this.state.fixedNav) {
       this.setState({
         fixedNav: true,
       });
-    } else if (window.scrollY < 60 && this.state.fixedNav) {
+    } else if (window.scrollY < this.props.fixedPosition && this.state.fixedNav) {
       this.setState({
         fixedNav: false,
       });
@@ -47,15 +46,12 @@ export default class AppBar extends Component {
       top: 0;
       position: ${this.state.fixedNav ? 'fixed' : 'absolute'};
       width: 100%;
-      height: ${this.state.fixedNav ? '70px' : '150px'};
+      height: 70px;
       color: white;
       box-shadow: ${this.state.fixedNav ? '0 1px 1px rgba(0,0,0,.15)' : ''};
       background-color: ${this.state.fixedNav ? '#C62828' : '#E53935'};
       transition: all 100ms ease-in;
       animation: ${this.state.fixedNav ? `${slideDown} 420ms cubic-bezier(.165,.84,.44,1)` : ''};
-      @media (max-width: 700px) {
-        height: 70px;
-      }
     `;
 
     const Container = styled.div`
@@ -84,7 +80,9 @@ export default class AppBar extends Component {
       align-content: center;
       font-size: 24px;
       font-weight: 800;
+      opacity: ${this.state.fixedNav ? 1 : 0};
       height: ${this.state.fixedNav ? 'auto' : '100%'};
+      transition: all ease-in 2s;
     `;
 
     const Logo = styled.img`
@@ -114,7 +112,10 @@ export default class AppBar extends Component {
                 </LogoAccent>
               </span>
             </Title>
-            <CraftSelector fixedNav={this.state.fixedNav} />
+            {
+              this.state.fixedNav &&
+              <CraftSelector fixedNav={this.state.fixedNav} />
+            }
           </TitleSection>
           <NavItems selected={this.props.selected}>
             <NavItem value={0}>Home</NavItem>
@@ -131,10 +132,12 @@ AppBar.propTypes = {
   currentPage: PropTypes.string,
   children: PropTypes.node,
   selected: PropTypes.number,
+  fixedPosition: PropTypes.number
 };
 
 AppBar.defaultProps = {
   currentPage: 'Crafts',
+  fixedPosition: 300,
 };
 
 /*
