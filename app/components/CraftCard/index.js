@@ -1,14 +1,41 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
+// import { FormattedMessage } from 'react-intl';
+import styled, { keyframes } from 'styled-components';
 
-export default class CraftCard extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class CraftCard extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = {
+      showMore: false,
+    };
+  }
+
+  generateTech = (t, indx, arr) => indx === arr.length - 1 ? `${t}` : `${t}, `;
+
+  showMore = () => {
+    this.setState({
+      showMore: !this.state.showMore,
+    });
+  };
+
   render() {
+    const pullDown = keyframes`
+      0%{transform:translateY(25%)}
+      100%{transform:translateY(-25%)}
+    `;
+
+    const pullUp = keyframes`
+      0%{transform:translateY(-25%)}
+      100%{transform:translateY(25%)}
+    `;
+
     const Wrapper = styled.div`
+      user-select: none;
       margin: 0 auto;
       overflow: hidden;
       color: ${this.props.color};
-      background: ${this.props.themeColor};
+      background: ${this.props.theme};
       width: 250px;
       height: 350px;
       margin-bottom: 24px;
@@ -38,11 +65,16 @@ export default class CraftCard extends React.PureComponent { // eslint-disable-l
       margin: 3px 0;
       height: 3px;
       border: 0;
+      transition: all ease-in 200ms;
+      ${Wrapper}:hover & {
+        width: 50%;
+      }
     `;
 
     const SubTitle = styled.div`
       font-size: 1em;
       font-weight: bold;
+      font-style: italic;
     `;
 
     const Image = styled.div`
@@ -67,10 +99,12 @@ export default class CraftCard extends React.PureComponent { // eslint-disable-l
       padding: 12px;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      bottom: 0;
+      bottom: ${this.state.showMore ? '100%' : '0'};
       left: 0;
       right: 0;
       position: absolute;
+      padding-bottom: 30px;
+      transition: bottom 1s ease-in;
     `;
 
     const Summary = styled.div`
@@ -79,8 +113,41 @@ export default class CraftCard extends React.PureComponent { // eslint-disable-l
       text-overflow: ellipsis;
     `;
 
+    const ArrowButton = styled.div`
+      height: 24px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+    `;
+
+    const Icon = styled.i`
+      color: #FFEB3B;
+      font-size: 18px;
+      margin-left: 8px;
+      ${Wrapper}:hover & {
+        animation: ${this.state.showMore ? pullUp : pullDown} 500ms cubic-bezier(.165,.84,.44,1) infinite;
+      }
+    `;
+
+    const More = styled.div`
+      top: ${this.state.showMore ? '0%' : '100%'};
+      background-color: ${this.props.theme};
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transition: top 1s ease-in;
+    `;
+
     return (
-      <Wrapper>
+      <Wrapper
+        onClick={() => {
+          this.props.history.push(`/crafts/${this.props.key}`)
+        }}
+      >
         <Image />
         <Content>
           <TitleBar>
@@ -89,22 +156,37 @@ export default class CraftCard extends React.PureComponent { // eslint-disable-l
             </Title>
             <Horizontal />
             <SubTitle>
-              {this.props.subTitle}
+              {this.props.technologies.map(this.generateTech)}
             </SubTitle>
           </TitleBar>
-          <Summary>{this.props.synopsis}</Summary>
+          <Summary>{this.props.sub}</Summary>
         </Content>
+        <More>
+          {this.props.title}
+        </More>
+        <ArrowButton
+          onClick={(e) => {
+            e.stopPropagation();
+            this.showMore();
+          }}
+        >
+          <Icon className={`fas fa-chevron-${this.state.showMore ? 'down' : 'up'}`} />
+        </ArrowButton>
       </Wrapper>
     );
   }
 }
 
 CraftCard.defaultProps = {
+  key: '',
   title: 'Title',
-  subTitle: '',
-  synopsis: 'summary',
-  themeColor: '#C62828',
+  sub: '',
+  tags: [],
+  technologies: [],
+  theme: '#C62828',
   textColor: '#212121',
   color: '#fff',
-  actions: null,
+  src: '',
 };
+
+export default withRouter(CraftCard);

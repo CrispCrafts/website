@@ -14,8 +14,11 @@ import styled from 'styled-components';
 // import messages from './messages';
 import CraftCard from 'components/CraftCard';
 import AppHeader from 'components/AppHeader';
+import { projects } from 'utils/mock-projects';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function  
+  generateChildren = (c) => <CraftCard key={c.title} {...c} />;
+
   render() {
     const Wrapper = styled.div`
       width: 100%;
@@ -37,26 +40,24 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
     return (
       <Wrapper>
-        <AppHeader />
+        <AppHeader category={this.props.selectedCategory} />
         <Grid>
-          <CraftCard themeColor="#C62828" src="http://www.scarymommy.com/wp-content/uploads/2015/08/tween-tech-what-parents-need-to-know-about-clash-of-the-clans.jpg?w=700" title="Greek Wars" subTitle="Unity" synopsis="A 2.5D platformer made with the Unity Game Engine" href="https://greekwars.crispcrafts.com" />
-          <CraftCard themeColor="linear-gradient(to right, #108dc7, #ef8e38)" title="Colors" subTitle="Web" synopsis="A set of useful color tools" href="https://colors.crispcrafts.com" />
-          <CraftCard themeColor="#8e08d1" title="Characters" subTitle="Web" synopsis="A set of useful ascii tools" href="https://characters.crispcrafts.com" />
-          <CraftCard themeColor="#b1f779" color="#212121" title="Reactive Mirror" subTitle="IoT" synopsis="A DIY Magic Mirror application" href="https://mirror.crispcrafts.com" />
+          {
+            this.props.cards.filter((x) => {
+              if (this.props.selectedCategory === 'All') {
+                return true;
+              }
+              
+              x.tags.includes(this.props.selectedCategory)
+            }).map(this.generateChildren)
+          }
         </Grid>
       </Wrapper>
     );
   }
 }
 
-
-/*
-          <p>A set of character tools</p>
-          <h1><a href="https://github.com/cristian006/ReactiveMirror">reactive-mirror</a></h1>
-          <p>A modular react + electron app meant to run on Raspberry Pi 3 for a DIY Smart Mirror</p>
-        </div>
-        <CraftCard themeColor="linear-gradient(to right, #108dc7, #ef8e38)" title="Colors" subTitle="Web" synopsis="A set of useful color tools" href="https://colors.crispcrafts.com" />
-          <CraftCard themeColor="#8e08d1" title="Characters" subTitle="Web" synopsis="A set of useful ascii tools" href="https://characters.crispcrafts.com" />
-          <CraftCard themeColor="#b1f779" color="#212121" title="Reactive Mirror" subTitle="IoT" synopsis="A DIY Magic Mirror application" href="https://mirror.crispcrafts.com" />
-        
-*/
+HomePage.defaultProps = {
+  selectedCategory: 'All',
+  cards: projects,
+};

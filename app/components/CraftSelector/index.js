@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function NavItem(props) {
+export default function CraftSelector(props) {
   const Wrapper = styled.div`
     color: #FFF176;
     height: 100%;
@@ -71,7 +71,7 @@ export default function NavItem(props) {
     <Wrapper>
       <Title>
         <Arrow><i className="fas fa-caret-left"></i></Arrow>
-        <Text>Games</Text>
+        <Text>{props.selectedCategory}</Text>
         <Arrow style={{ color: '#FFEE58' }}><i className="fas fa-caret-right"></i></Arrow>
       </Title>
       <DotContainer>
@@ -83,3 +83,7 @@ export default function NavItem(props) {
     </Wrapper>
   );
 }
+
+CraftSelector.defaultProps = {
+  selectedCategory: 'All',
+};

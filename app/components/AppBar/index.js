@@ -118,9 +118,9 @@ export default class AppBar extends Component {
             }
           </TitleSection>
           <NavItems selected={this.props.selected}>
-            <NavItem value={0}>Home</NavItem>
-            <NavItem value={2}>About</NavItem>
-            <NavItem value={3}>Hire Me</NavItem>
+            <NavItem value={0} to={'/'}>Home</NavItem>
+            <NavItem value={2} to={'/'}>About</NavItem>
+            <NavItem value={3} to={'/'}>Hire Me</NavItem>
           </NavItems>
         </Container>
       </Wrapper>
@@ -138,6 +138,7 @@ AppBar.propTypes = {
 AppBar.defaultProps = {
   currentPage: 'Crafts',
   fixedPosition: 300,
+  selected: 0,
 };
 
 /*

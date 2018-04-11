@@ -30,7 +30,7 @@ export default class AppHeader extends Component {
       <Wrapper>
         <Logo src={chip} />
         <Title>{this.props.appName}</Title>
-        <CraftsSelector />
+        <CraftsSelector selectedCategory={this.props.selectedCategory}/>
       </Wrapper>
     );
   }

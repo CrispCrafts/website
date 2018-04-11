@@ -6,6 +6,7 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+    backround: red;
   }
 
   body {
@@ -17,11 +18,10 @@ injectGlobal`
   }
 
   #app {
-    background-color: #fafafa;
     min-height: 100%;
     min-width: 100%;
   }
-
+  
   p,
   label {
     font-family: 'Donsis', serif;
