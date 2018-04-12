@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
-import chip from '../../images/chip.png';
+import chip from '../../images/crumbs.png';
 import CraftsSelector from 'components/CraftSelector';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export default class AppHeader extends Component {
   render() {
@@ -24,6 +33,7 @@ export default class AppHeader extends Component {
     const Logo = styled.img`
       width: 100%;
       max-width: 150px;
+      animation: ${fadeIn} 200ms ease-in;
     `;
 
     return (
