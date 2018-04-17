@@ -16,6 +16,7 @@ import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 import HomePage from '../HomePage/Loadable';
+import CraftPage from '../CraftPage/Loadable';
 import NotFoundPage from '../NotFoundPage/Loadable';
 import AppBar, { NavItems, NavItem } from '../../components/AppBar';
 import AppFooter from '../../components/AppFooter';
@@ -40,6 +41,7 @@ export default class App extends Component {
         <AppBar selected={this.state.selectedPage} />
         <AppPage style={{ background: this.state.theme }}>
           <Switch>
+            <Route exact path="/crafts/:craft" component={CraftPage} />
             <Route exact path="/" component={HomePage} />
             <Route component={NotFoundPage} />
           </Switch>

@@ -167,7 +167,7 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
     return (
       <Wrapper
         onClick={() => {
-          this.props.history.push(`/crafts/craft?=${this.props.title}`)
+          this.props.history.push(`/crafts/${this.props.title}`);
         }}
         onMouseEnter={() => {
           this.setState({
