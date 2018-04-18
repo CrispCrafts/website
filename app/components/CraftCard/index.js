@@ -80,6 +80,7 @@ const Horizontal = styled.hr`
   background-color: #FFEB3B;
   margin: 3px 0;
   height: 3px;
+  border-radius: 8px;
   border: 0;
   transition: all ease-in 200ms;
 `;
@@ -153,10 +154,12 @@ const More = styled.div`
 
 const ShowMoreText = styled.div`
   overflow: hidden;
-  text-align: center;
+  text-align: left;
   opacity: ${props => props.hovering ? 1 : 0};
-  width: ${props => props.hovering ? 'initial' : '0px'};
+  width: ${props => props.width};
   transition: all 300ms ease-out;
+  white-space: nowrap;
+  padding-left: 8px;
 `;
 
 const QuickActions = styled.div`
@@ -294,7 +297,9 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
             <i className={`fas fa-chevron-up`}></i>
           </Icon>
         }
-        <ShowMoreText hovering={this.state.hovering}>
+        <ShowMoreText
+          width={this.state.hovering ? '80px' : '0px'}
+          hovering={this.state.hovering}>
           {this.state.showMore ? 'Close' : 'Quick Look'}
         </ShowMoreText>
         </ArrowButton>
