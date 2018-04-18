@@ -1,4 +1,4 @@
-export default [
+export const languageColors = {
   'Mercury': '#ff2b2b', 
   'TypeScript': '#2b7489', 
   'PureBasic': '#5a6986', 
@@ -129,7 +129,7 @@ export default [
   'TeX': '#3D6117', 
   'Nemerle': '#3d3c6e', 
   'KRL': '#28431f', 
-  'Ren'Py': '#ff7f7f', 
+  'Ren\'Py': '#ff7f7f', 
   'Unified Parallel C': '#4e3617', 
   'Golo': '#88562A', 
   'Fancy': '#7b9db4', 
@@ -197,4 +197,13 @@ export default [
   'AGS Script': '#B9D9FF', 
   'Dogescript': '#cca760', 
   'nesC': '#94B0C7'
-]
+};
+
+export const aliases = {
+  'C#': 'C Sharp',
+};
+
+export default function languageColor(language) {
+  const lan = aliases[language] || language;
+  return languageColors[lan] || '#eee';
+};

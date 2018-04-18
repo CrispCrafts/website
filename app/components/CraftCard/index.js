@@ -24,6 +24,18 @@ const pullUp = keyframes`
 const Icon = styled.div`
   color: #FFEB3B;
   font-size: 18px;
+  margin: 8px;
+`;
+
+const Action = styled.a`
+  margin: 8px;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: all 200ms ease-in;
+  &:hover {
+    color: #FFEB3B;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -103,7 +115,7 @@ const Content = styled.div`
   left: 0;
   right: 0;
   position: absolute;
-  padding-bottom: 34px;
+  padding-bottom: 48px;
 `;
 
 const Summary = styled.div`
@@ -113,13 +125,14 @@ const Summary = styled.div`
 `;
 
 const ArrowButton = styled.div`
-  height: 30px;
+  height: 48px;
   position: absolute;
   bottom: ${props => props.bottom};
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   transition: all 200ms ease-in;
 `;
 
@@ -134,7 +147,27 @@ const More = styled.div`
   right: 0;
   transition: all 200ms ease-in;
   padding: 12px;
-  padding-top: 34px;
+  padding-top: 48px;
+  cursor: default;
+`;
+
+const ShowMoreText = styled.div`
+  overflow: hidden;
+  text-align: center;
+  opacity: ${props => props.hovering ? 1 : 0};
+  width: ${props => props.hovering ? 'initial' : '0px'};
+  transition: all 300ms ease-out;
+`;
+
+const QuickActions = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
 `;
 
 export class CraftCard extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -148,11 +181,9 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        mounted: true,
-      });
-    }, 300);
+    this.setState({
+      mounted: true,
+    });
   }
 
   generateTech = (t, indx, arr) => indx === arr.length - 1 ? `${t}` : `${t}, `;
@@ -167,14 +198,16 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
     return (
       <Wrapper
         onClick={() => {
-          this.props.history.push(`/crafts/${this.props.title}`);
+          this.props.history.push(`/crafts/${this.props.id}`);
         }}
         onMouseEnter={() => {
+          if(!this.state.mounted) return;
           this.setState({
             hovering: true,
           });
         }}
         onMouseLeave={() => {
+          if(!this.state.mounted) return;
           this.setState({
             hovering: false,
           });
@@ -206,15 +239,44 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
           <Summary>{this.props.sub}</Summary>
         </Content>
         <More
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
           opacity={this.state.showMore ? 1 : 0}
           top={this.state.showMore ? 0 : '100%'}
           cornerRad={this.props.cornerRad}
           theme={this.props.theme}
         >
-          {this.props.title}
+          <div>Craft: {this.props.title}</div>
+          <div>Created: {this.props.date || 'February 12'}</div>
+          <div>Last Updated: {this.props.update || '2 days ago'}</div>
+          <div>Languages: {this.props.languages.join(', ')}</div>
+          <div>Technologies: {this.props.technologies.join(', ')}</div>
+          <div>Tags: {this.props.tags.join(', ')}</div>
+          <QuickActions>
+            <span>
+              {
+                this.props.link &&
+                <Action href={this.props.link} target="_blank" highlightColor={this.props.theme}>
+                  <i className="fas fa-link" />
+                </Action>
+              }
+              {
+                (!this.props.private && this.props.git) &&
+                <Action href={this.props.git} target="_blank" highlightColor={this.props.theme}>
+                  <i className="fab fa-github" />
+                </Action>
+              }
+            </span>
+            <Action onClick={() => {
+              this.props.history.push(`/crafts/${this.props.id}`);
+            }}>
+              More <i className="fas fa-chevron-right"></i>
+            </Action>
+          </QuickActions>
         </More>
         <ArrowButton
-          bottom={!this.state.showMore ? 0 : 'calc(100% - 30px)'}
+          bottom={!this.state.showMore ? 0 : 'calc(100% - 48px)'}
           onClick={(e) => {
             e.stopPropagation();
             this.showMore();
@@ -232,6 +294,9 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
             <i className={`fas fa-chevron-up`}></i>
           </Icon>
         }
+        <ShowMoreText hovering={this.state.hovering}>
+          {this.state.showMore ? 'Close' : 'Quick Look'}
+        </ShowMoreText>
         </ArrowButton>
       </Wrapper>
     );

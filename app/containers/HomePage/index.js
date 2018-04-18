@@ -17,7 +17,7 @@ import AppHeader from 'components/AppHeader';
 import { projects } from 'utils/mock-projects';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function  
-  generateChildren = (c) => <CraftCard key={c.title} {...c} />;
+  generateChildren = (c) => <CraftCard key={c.id} {...c} />;
 
   render() {
     const Wrapper = styled.div`
@@ -47,7 +47,6 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
               if (this.props.selectedCategory === 'All') {
                 return true;
               }
-              
               x.tags.includes(this.props.selectedCategory)
             }).map(this.generateChildren)
           }
