@@ -42,13 +42,19 @@ const Languages = styled.div`
   font-size: 1.3em;
 `;
 
+const Tags = styled.div`
+  font-size: 1.1em;
+`;
+
 export default class CraftPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props){
     super(props);
     this.state = {
+      id: '',
       title: '',
       sub: '',
-      id: ''
+      tags: [],
+      languages: [],
     };
   }
 
@@ -72,6 +78,7 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
     const {
       title,
       sub,
+      tags,
       languages
     } = this.state;
 
@@ -80,6 +87,7 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
         <Title>{title}</Title>
         <Languages>{this.generateLanguageColors(languages)}</Languages>
         <SubMessage>{sub}</SubMessage>
+        <Tags>{tags.join(', ')}</Tags>
       </Wrapper>
     );
   }

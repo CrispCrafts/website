@@ -14,6 +14,7 @@ import styled from 'styled-components';
 // import messages from './messages';
 import CraftCard from 'components/CraftCard';
 import AppHeader from 'components/AppHeader';
+import Fab from 'components/Fab';
 import { projects } from 'utils/mock-projects';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function  
@@ -24,6 +25,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
       width: 100%;
       min-height: 100%;
       background: #E53935;
+      position: relative;
     `;
 
     const Grid = styled.div`
@@ -51,6 +53,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
             }).map(this.generateChildren)
           }
         </Grid>
+        <Fab />
       </Wrapper>
     );
   }

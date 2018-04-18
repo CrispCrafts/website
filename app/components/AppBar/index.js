@@ -140,23 +140,3 @@ AppBar.defaultProps = {
   fixedPosition: 300,
   selected: 0,
 };
-
-/*
- * box-shadow: ${this.state.fixedNav ? '0 1px 1px rgba(0,0,0,.15)' : ''};
- * border-bottom: ${this.state.fixedNav ? '' : '1px solid #D32F2F'};
- */
-
- /**
-  *   const Wrapper = styled.div`
-      z-index: 1000;
-      padding: 0;
-      top: 0;
-      position: ${this.state.fixedNav ? 'fixed' : 'absolute'};
-      width: 100%;
-      height:${this.state.fixedNav ? '70px' : '150px'};
-      color: white;
-      background-color: #E53935;
-      transition: all 100ms ease-in;
-      animation: ${this.state.fixedNav ? `${slideDown} 420ms cubic-bezier(.165,.84,.44,1)` : ''};
-  `;
-*/

@@ -26,10 +26,15 @@ export default function AppFooter() {
     align-items: center;
   `;
 
-  const Icon = styled.i`
+  const Icon = styled.a`
     color: white;
     font-size: 18px;
-    margin-left: 8px;
+    margin: 0 8px;
+    color: inherit;
+    cursor: pointer;
+    &:hover {
+      color: #FFEB3B;
+    }
   `;
 
   return (
@@ -39,11 +44,9 @@ export default function AppFooter() {
       </div>
       <Logo src={chip} alt="CrispLogo" />
       <Social>
-        <Icon className="fas fa-envelope" />
-        <Icon className="fab fa-twitter" />
-        <Icon className="fab fa-facebook" />
-        <Icon className="fab fa-instagram" />
-        <Icon className="fab fa-youtube" />
+        <Icon href="mailto:cristianrponce06@gmail.com"><i className="fas fa-envelope" /></Icon>
+        <Icon href="https://github.com/Cristian006" target="_blank"><i className="fab fa-github"/></Icon>
+        <Icon href="https://www.linkedin.com/in/cristian-ponce006/" target="_blank"><i className="fab fa-linkedin"/></Icon>
       </Social>
     </Wrapper>
   );
