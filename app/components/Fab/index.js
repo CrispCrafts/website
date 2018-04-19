@@ -70,11 +70,7 @@ class Fab extends Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
-        if(this.fab) {
-            this.fab.addEventListener('animationend', this.handleAnimationEnd);
-        } else {
-            console.log("NO FAB ELEMENT");
-        }
+        this.fab.addEventListener('animationend', this.handleAnimationEnd);
     }
 
     componentWillUnmount() {
@@ -83,7 +79,6 @@ class Fab extends Component {
     }
 
     handleAnimationEnd = (e) => {
-        console.log(this.state.show);
         this.setState({
             display: (this.state.show ? 'flex' : 'none'),
         });
@@ -95,18 +90,18 @@ class Fab extends Component {
                 show: true,
                 display: 'flex',
             });
-        } else if (window.scrollY < this.props.fixedPosition && this.state.show) {
+        } else if (window.scrollY <= this.props.fixedPosition && this.state.show) {
             this.setState({
                 show: false,
             });
         }
         
-        if ((window.scrollY >= (document.body.scrollHeight - (window.innerHeight + this.props.absolutePosition))) && this.state.fixed) {
+        if ((window.pageYOffset > (document.body.scrollHeight - (window.innerHeight + this.props.absolutePosition))) && this.state.fixed) {
             this.setState({
                 fixed: false,
             });
         }
-        else if ((window.scrollY < (document.body.scrollHeight - (window.innerHeight + this.props.absolutePosition))) && !this.state.fixed) {
+        else if ((window.pageYOffset <= (document.body.scrollHeight - (window.innerHeight + this.props.absolutePosition))) && !this.state.fixed) {
             this.setState({
                 fixed: true,
             });

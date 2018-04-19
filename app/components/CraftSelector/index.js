@@ -2,6 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default function CraftSelector(props) {
+  const selectedCategory = (category) => {
+    switch (category) {
+      case 'All':
+        return 'EVERYTHING'
+    }
+  }
+
   const Wrapper = styled.div`
     color: #FFF176;
     height: 100%;
@@ -71,7 +78,7 @@ export default function CraftSelector(props) {
     <Wrapper>
       <Title>
         <Arrow><i className="fas fa-caret-left"></i></Arrow>
-        <Text>{props.selectedCategory}</Text>
+        <Text>{selectedCategory(props.selectedCategory)}</Text>
         <Arrow style={{ color: '#FFEE58' }}><i className="fas fa-caret-right"></i></Arrow>
       </Title>
       <DotContainer>
