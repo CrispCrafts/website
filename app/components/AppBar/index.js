@@ -6,25 +6,101 @@ import NavItems from './NavItems';
 import NavItem from './NavItem';
 import CraftSelector from 'components/CraftSelector';
 
+const slideDown = keyframes`
+  0% {
+    transform:translateY(-100%)
+  }
+  100%{transform:translateY(0)}
+`;
+
+const slideUp = keyframes`
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-100%)}
+`;
+
+const Wrapper = styled.div`
+  z-index: 1000;
+  padding: 0;
+  top: 0;
+  position: ${props => props.fixedNav ? 'fixed' : 'absolute'};
+  width: 100%;
+  height: 70px;
+  color: white;
+  box-shadow: ${props => props.fixed ? '0 1px 1px rgba(0,0,0,.15)' : ''};
+  background-color: ${props => props.fixed ? '#C62828' : '#E53935'};
+  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : `${slideUp} 200ms cubic-bezier(.165,.84,.44,1)`};
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  opacity: ${props => props.fixed ? 1 : 0};
+  height: ${props => props.fixed ? 'auto' : '100%'};
+  transition: all ease-in 200ms;
+`;
+
+const Container = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: ${props => props.fixed ? 'center' : 'flex-start'};
+  margin: 0 auto;
+  padding: ${props => props.fixed ? '0 4vw' : '20px 4vw'};
+`;
+
+const TitleSection = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  flex: 1;
+`;
+
+const Logo = styled.img`
+  width: 36px;
+  margin-right: 12px;
+`;
+
+const LogoAccent = styled.span`
+  color: #FFF176;
+`;
+
 export default class AppBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fixedNav: false,
+      fixed: false,
     };
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll, false);
+    this.bar.addEventListener('animationend', this.handleAnimationEnd);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll, false);
+    this.bar.removeEventListener('animationend', this.handleAnimationEnd);
+  }
+
+  handleAnimationEnd = () => {
+    console.log(this.state.fixedNav)
+    this.setState({
+      fixed: this.state.fixedNav
+    });
   }
 
   handleScroll = () => {
     if (window.scrollY > this.props.fixedPosition && !this.state.fixedNav) {
       this.setState({
+        fixed: true,
         fixedNav: true,
       });
     } else if (window.scrollY < this.props.fixedPosition && this.state.fixedNav) {
@@ -35,70 +111,15 @@ export default class AppBar extends Component {
   }
 
   render() {
-    const slideDown = keyframes`
-      0%{transform:translateY(-100%)}
-      100%{transform:translateY(0)}
-    `;
-
-    const Wrapper = styled.div`
-      z-index: 1000;
-      padding: 0;
-      top: 0;
-      position: ${this.state.fixedNav ? 'fixed' : 'absolute'};
-      width: 100%;
-      height: 70px;
-      color: white;
-      box-shadow: ${this.state.fixedNav ? '0 1px 1px rgba(0,0,0,.15)' : ''};
-      background-color: ${this.state.fixedNav ? '#C62828' : '#E53935'};
-      transition: all 100ms ease-in;
-      animation: ${this.state.fixedNav ? `${slideDown} 420ms cubic-bezier(.165,.84,.44,1)` : ''};
-    `;
-
-    const Container = styled.div`
-      height: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-content: center;
-      align-items: ${this.state.fixedNav ? 'center' : 'flex-start'};
-      margin: 0 auto;
-      padding: ${this.state.fixedNav ? '0 4vw' : '20px 4vw'};
-    `;
-
-    const TitleSection = styled.div`
-      display: flex;
-      height: 100%;
-      justify-content: flex-start;
-      align-items: center;
-      align-content: center;
-      flex: 1;
-    `;
-
-    const Title = styled.div`
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      align-content: center;
-      font-size: 24px;
-      font-weight: 800;
-      opacity: ${this.state.fixedNav ? 1 : 0};
-      height: ${this.state.fixedNav ? 'auto' : '100%'};
-      transition: all ease-in 2s;
-    `;
-
-    const Logo = styled.img`
-      width: 36px;
-      margin-right: 12px;
-    `;
-
-    const LogoAccent = styled.span`
-      color: #FFF176;
-    `;
-
     return (
-      <Wrapper>
-        <Container>
+      <Wrapper
+        fixed={this.state.fixedNav}
+        fixedNav={this.state.fixed}
+        innerRef={(e) => {this.bar = e;}}>
+        <Container
+          fixed={this.state.fixedNav}>
           <TitleSection>
-            <Title>
+            <Title fixed={this.state.fixedNav}>
               <Logo src={chip} alt="CrispLogo" />
               <span>
                 Crisp
