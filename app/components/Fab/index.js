@@ -35,12 +35,13 @@ const hideFab = keyframes`
     }
 `;
 
+//0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
 const FabButton = styled.div`
     color: ${props => props.color};
     display: ${props => props.display};
     max-width: ${props => props.size};
     max-height: ${props => props.size};
-    box-shadow: ${props => props.showShadow ? '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)' : ''};
+    box-shadow: ${props => props.showShadow ? (props.hovering ? '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)' : '0 6px 6px rgba(0,0,0,0.23)') : ''};
     background: ${props => props.background};
     z-index: ${props => props.zIndex};
     position: ${props => props.fixed ? 'fixed' : 'absolute'};
@@ -51,7 +52,7 @@ const FabButton = styled.div`
     border-radius: 50%;
     right: 2%;
     bottom: 30px;
-    transition: all 350ms ease-in;
+    transition: all 300ms ease-in-out;
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -64,6 +65,7 @@ class Fab extends Component {
             intervalId: 0,
             show: false,
             fixed: true,
+            hovering: false,
             display: 'none',
         }
     }
@@ -132,6 +134,17 @@ class Fab extends Component {
                 background={this.props.background}
                 color={this.props.color}
                 showShadow={this.props.showShadow}
+                hovering={this.state.hovering}
+                onMouseEnter={() => {
+                    this.setState({
+                        hovering: true,
+                    });
+                }}
+                onMouseLeave={() => {
+                    this.setState({
+                        hovering: false,
+                    });
+                }}
                 onClick={() => {
                     this.scrollToTop();
                 }}

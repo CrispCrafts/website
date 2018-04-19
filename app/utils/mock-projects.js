@@ -114,7 +114,7 @@ export const projects = [
     sub: 'Contract Web Development Work for Iris\'s Hair salon',
     theme: 'linear-gradient(to bottom, #108dc7, #ef8e38)',
     src: 'http://iris-hair-salon.com/files/long-haircut.jpg',
-    link: 'https://iris-hair-salon.com',
+    link: 'http://iris-hair-salon.com',
     private: true,
     git: 'http://github.com/Cristian006/irishairsalon',
     languages: [
@@ -134,7 +134,7 @@ export const projects = [
     sub: 'Contract Web Development Work for construction company based in Florida',
     overlay: 'linear-gradient(to bottom, #108dc7, #ef8e38)',
     theme: '#388E3C',
-    src: 'http://carrillos-construction.com/images/Carrillos-Construction96.png',
+    src: 'http://carrillos-construction.com/images/lawnmower.png',
     link: 'http://carrillos-construction.com',
     private: true,
     git: 'https://github.com/Cristian006/carrillosconstruction',
@@ -149,4 +149,11 @@ export const projects = [
       'Web',
     ],
   },
+];
+
+export const categories = [
+  'All',
+  'Web',
+  'Games',
+  'IoT',
 ];

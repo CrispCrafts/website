@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   color: white;
   box-shadow: ${props => props.fixed ? '0 1px 1px rgba(0,0,0,.15)' : ''};
   background-color: ${props => props.fixed ? '#C62828' : '#E53935'};
-  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : `${slideUp} 200ms cubic-bezier(.165,.84,.44,1)`};
+  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : `${slideUp} 300ms cubic-bezier(.165,.84,.44,1)`};
 `;
 
 const Title = styled.div`
@@ -138,10 +138,10 @@ export default class AppBar extends Component {
               <CraftSelector fixedNav={this.state.fixedNav} />
             }
           </TitleSection>
-          <NavItems selected={this.props.selected}>
-            <NavItem value={0} to={'/'}>Home</NavItem>
-            <NavItem value={2} to={'/about'}>About</NavItem>
-            <NavItem value={3} to={'/hireme'}>Hire Me</NavItem>
+          <NavItems>
+            <NavItem value={0} selected={this.props.selected === 0} to={'/'}>Home</NavItem>
+            <NavItem value={1} selected={this.props.selected === 1} to={'/about'}>About</NavItem>
+            <NavItem value={2} selected={this.props.selected === 2}to={'/hireme'}>Hire Me</NavItem>
           </NavItems>
         </Container>
       </Wrapper>
@@ -153,11 +153,13 @@ AppBar.propTypes = {
   currentPage: PropTypes.string,
   children: PropTypes.node,
   selected: PropTypes.number,
-  fixedPosition: PropTypes.number
+  fixedPosition: PropTypes.number,
+  hideSelector: PropTypes.bool,
 };
 
 AppBar.defaultProps = {
   currentPage: 'Crafts',
   fixedPosition: 300,
   selected: 0,
+  hideSelector: false,
 };

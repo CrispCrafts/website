@@ -6,7 +6,6 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
-    backround: red;
   }
 
   body {
@@ -26,5 +25,10 @@ injectGlobal`
   label {
     font-family: 'Donsis', serif;
     line-height: 1.5em;
+  }
+
+  ::selection {
+    background: #FFEA00;
+    color: #F44336;
   }
 `;

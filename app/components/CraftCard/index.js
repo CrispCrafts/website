@@ -55,7 +55,6 @@ const Wrapper = styled.div`
   box-shadow: 0px 1px 5px rgba(0,0,0,0.4);
   position: relative;
   cursor: pointer;
-  transform: all 300ms ease-in;
   &:hover ${Icon} {
     animation: ${props => props.iconAnimation};
   }
@@ -215,6 +214,7 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
             hovering: false,
           });
         }}
+        hovering={this.state.hovering}
         color={this.props.color}
         theme={this.props.theme}
         cornerRad={this.props.cornerRad}
