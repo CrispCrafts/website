@@ -23,9 +23,9 @@ export default function NavItem(props) {
 
   return (
     <Wrapper onClick={(e) => {
-      if(props.selected) {
+      /*if(props.selected) {
         e.preventDefault();
-      }
+      }*/
     }} selected={props.selected} to={props.to}>
       {props.children}
     </Wrapper>

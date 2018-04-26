@@ -18,6 +18,7 @@ import styled from 'styled-components';
 import HomePage from '../HomePage/Loadable';
 import CraftPage from '../CraftPage/Loadable';
 import AboutPage from '../AboutPage/Loadable';
+import HireMe from '../HireMe/Loadable';
 import NotFoundPage from '../NotFoundPage/Loadable';
 import AppBar, { NavItems, NavItem } from '../../components/AppBar';
 import AppFooter from '../../components/AppFooter';
@@ -44,6 +45,7 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/crafts/:craft" component={CraftPage} />
             <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/hireme" component={HireMe} />
             <Route exact path="/" component={HomePage} />
             <Route component={NotFoundPage} />
           </Switch>

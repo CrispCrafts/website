@@ -141,7 +141,7 @@ export default class AppBar extends Component {
           <NavItems>
             <NavItem value={0} selected={this.props.selected === 0} to={'/'}>Home</NavItem>
             <NavItem value={1} selected={this.props.selected === 1} to={'/about'}>About</NavItem>
-            <NavItem value={2} selected={this.props.selected === 2}to={'/hireme'}>Hire Me</NavItem>
+            <NavItem value={2} selected={this.props.selected === 2} to={'/hireme'}>Hire Me</NavItem>
           </NavItems>
         </Container>
       </Wrapper>

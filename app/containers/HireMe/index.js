@@ -27,19 +27,17 @@ const Wrapper = styled.div`
     animation: ${riseUp} ease-in-out 400ms;
 `;
 
-export default class AboutPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-    constructor(props){
-      super(props);
-    }
-
-    render() {
-      return (
-        <Wrapper theme={'#FFEB3B'}>
-            <div>About Me</div>
-            <div>Just an idie developer from California that likes to build and share stuff :)</div>
-            <div>Still need to finish this page</div>
-        </Wrapper>
-      );
-    }
+export default class HireMe extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
   }
-  
+
+  render() {
+    return (
+      <Wrapper theme={'#FFEB3B'}>
+          <div>Hire Me</div>
+          <div>Still need to finish this page</div>
+      </Wrapper>
+    );
+  }
+}
