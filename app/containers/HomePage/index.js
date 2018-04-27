@@ -16,8 +16,17 @@ import CraftCard from 'components/CraftCard';
 import AppHeader from 'components/AppHeader';
 import Fab from 'components/Fab';
 import { projects } from 'utils/mock-projects';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectRepos, makeSelectLoading } from 'containers/App/selectors';
+import { changeCategory } from './actions';
+import { makeSelectCategory } from './selectors';
+import reducer from './reducer';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function  
+import injectReducer from 'utils/injectReducer';
+
+class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function  
   generateChildren = (c) => <CraftCard key={c.id} {...c} />;
 
   render() {
@@ -42,14 +51,14 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 
     return (
       <Wrapper>
-        <AppHeader category={this.props.selectedCategory} />
+        <AppHeader category={this.props.category} onChangeCategory={this.props.onChangeCategory}/>
         <Grid>
           {
             this.props.cards.filter((x) => {
-              if (this.props.selectedCategory === 'All') {
+              if (this.props.category === 'All') {
                 return true;
               }
-              x.tags.includes(this.props.selectedCategory)
+              x.tags.includes(this.props.category)
             }).map(this.generateChildren)
           }
         </Grid>
@@ -60,6 +69,30 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
 }
 
 HomePage.defaultProps = {
-  selectedCategory: 'All',
+  category: 'All',
   cards: projects,
 };
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onChangeCategory: (category) => dispatch(changeCategory(category)),
+    /*onSubmitForm: (evt) => {
+      //if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+
+      dispatch(loadRepos());
+    },*/
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  category: makeSelectCategory(),
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+const withReducer = injectReducer({ key: 'home', reducer });
+
+export default compose(
+  withReducer,
+  withConnect,
+)(HomePage);

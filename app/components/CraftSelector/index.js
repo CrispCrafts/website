@@ -182,11 +182,13 @@ export default class CraftSelector extends Component {
           bounce: true,
           selectedCategory: this.state.selectedCategory + 1,
         });
+        this.props.onChangeCategory(categories[this.state.selectedCategory + 1]);
       } else {
         this.setState({
           bounce: true,
           selectedCategory: 0
         });
+        this.props.onChangeCategory(categories[0]);
       }
     } else {
       if (this.state.selectedCategory > 0) {
@@ -194,11 +196,13 @@ export default class CraftSelector extends Component {
           bounce: true,
           selectedCategory: this.state.selectedCategory - 1,
         });
+        this.props.onChangeCategory(this.state.selectedCategory - 1);
       } else {
         this.setState({
           bounce: true,
           selectedCategory: categories.length-1,
         });
+        this.props.onChangeCategory(categories.length - 1);
       }
     }
   }
@@ -214,6 +218,7 @@ export default class CraftSelector extends Component {
                 bounce: true,
                 selectedCategory: indx,
               });
+              this.props.onCategoryChanged(indx);
             }
           }}>
           <DotA selected={c === categories[this.state.selectedCategory]} />

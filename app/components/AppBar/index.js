@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import chip from '../../images/chip.png';
 import NavItems from './NavItems';
 import NavItem from './NavItem';
+import { withRouter } from 'react-router-dom';
 import CraftSelector from 'components/CraftSelector';
 
 const slideDown = keyframes`
@@ -71,7 +72,7 @@ const LogoAccent = styled.span`
   color: #FFF176;
 `;
 
-export default class AppBar extends Component {
+class AppBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -139,9 +140,9 @@ export default class AppBar extends Component {
             }
           </TitleSection>
           <NavItems>
-            <NavItem value={0} selected={this.props.selected === 0} to={'/'}>Home</NavItem>
-            <NavItem value={1} selected={this.props.selected === 1} to={'/about'}>About</NavItem>
-            <NavItem value={2} selected={this.props.selected === 2} to={'/hireme'}>Hire Me</NavItem>
+            <NavItem value={0} selected={this.props.location.pathname === '/'} to={'/'}>Home</NavItem>
+            <NavItem value={1} selected={this.props.location.pathname === '/about'} to={'/about'}>About</NavItem>
+            <NavItem value={2} selected={this.props.location.pathname === '/hireme'} to={'/hireme'}>Hire Me</NavItem>
           </NavItems>
         </Container>
       </Wrapper>
@@ -163,3 +164,4 @@ AppBar.defaultProps = {
   selected: 0,
   hideSelector: false,
 };
+export default withRouter(AppBar);

@@ -40,7 +40,7 @@ export default class AppHeader extends Component {
       <Wrapper>
         <Logo src={chip} />
         <Title>{this.props.appName}</Title>
-        <CraftsSelector selectedCategory={this.props.selectedCategory}/>
+        <CraftsSelector selectedCategory={this.props.selectedCategory} onChangeCategory={this.props.onChangeCategory}/>
       </Wrapper>
     );
   }
