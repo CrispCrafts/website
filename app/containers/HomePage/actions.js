@@ -27,6 +27,7 @@ import {
  * @return {object}    An action object with a type of CHANGE_CATEGORY
  */
 export function changeCategory(category) {
+  console.log(category);
   return {
     type: CHANGE_CATEGORY,
     category,

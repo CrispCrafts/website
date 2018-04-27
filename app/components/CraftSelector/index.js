@@ -144,7 +144,6 @@ export default class CraftSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedCategory: 0,
       bounce: true,
     };
   }
@@ -164,45 +163,41 @@ export default class CraftSelector extends Component {
   }
 
   selectedCategory = (category) => {
-    let name = categories[category];
-    switch (name) {
+    switch (category) {
       case 'All':
         return 'EVERYTHING';
       case 'IoT':
         return 'I O T';
       default:
-        return name.toUpperCase();
+        return category.toUpperCase();
     }
   }
 
   moveNext = (next) => {
+    let currentIndex = categories.indexOf(this.props.category);
     if (next) {
-      if (this.state.selectedCategory < categories.length - 1) {
+      if (currentIndex < categories.length - 1) {
         this.setState({
           bounce: true,
-          selectedCategory: this.state.selectedCategory + 1,
         });
-        this.props.onChangeCategory(categories[this.state.selectedCategory + 1]);
+        this.props.onChangeCategory(categories[currentIndex + 1]);
       } else {
         this.setState({
           bounce: true,
-          selectedCategory: 0
         });
         this.props.onChangeCategory(categories[0]);
       }
     } else {
-      if (this.state.selectedCategory > 0) {
+      if (currentIndex > 0) {
         this.setState({
           bounce: true,
-          selectedCategory: this.state.selectedCategory - 1,
         });
-        this.props.onChangeCategory(this.state.selectedCategory - 1);
+        this.props.onChangeCategory(categories[currentIndex - 1]);
       } else {
         this.setState({
           bounce: true,
-          selectedCategory: categories.length-1,
         });
-        this.props.onChangeCategory(categories.length - 1);
+        this.props.onChangeCategory(categories[categories.length - 1]);
       }
     }
   }
@@ -213,15 +208,14 @@ export default class CraftSelector extends Component {
         <DotLi
           key={c}
           onClick={() => {
-            if(c !== categories[this.state.selectedCategory]) {
+            if(c !== this.props.category) {
               this.setState({
                 bounce: true,
-                selectedCategory: indx,
               });
-              this.props.onCategoryChanged(indx);
+              this.props.onChangeCategory(categories[indx]);
             }
           }}>
-          <DotA selected={c === categories[this.state.selectedCategory]} />
+          <DotA selected={c === this.props.category} />
         </DotLi>
       );
     });
@@ -235,7 +229,7 @@ export default class CraftSelector extends Component {
           <Arrow onClick={() => this.moveNext(false)}>
             <i className="fas fa-caret-left" />
           </Arrow>
-          <Text innerRef={(text) => this.text = text} bounce={this.state.bounce}>{this.selectedCategory(this.state.selectedCategory)}</Text>
+          <Text innerRef={(text) => this.text = text} bounce={this.state.bounce}>{this.selectedCategory(this.props.category)}</Text>
           <Arrow onClick={() => this.moveNext(true)}>
             <i className="fas fa-caret-right" />
           </Arrow>

@@ -2,7 +2,7 @@ export const projects = [
   {
     id: 'starmans-voyage',
     title: 'Starman\'s Voyage',
-    sub: 'A 2D Space Shooter based on the SpaceX Falcon Heavy launch of the Tesla Roadster into space made in the Unity Game Engine',
+    sub: 'A 2D Space Shooter based on the SpaceX Falcon Heavy launch of the Tesla Roadster into space made with the Unity Game Engine',
     overlay: 'rgba(0,0,0,0.8)',
     theme: '#4FC3F7',
     src: 'https://raw.githubusercontent.com/Cristian006/starman/master/Assets/Icons/BlackIcon_512x512-05.png?token=AOCCjTDWLa2WrS9e3XOQYb42CLiyL7r0ks5a6sl8wA%3D%3D',

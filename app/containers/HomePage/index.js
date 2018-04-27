@@ -58,7 +58,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
               if (this.props.category === 'All') {
                 return true;
               }
-              x.tags.includes(this.props.category)
+              return x.tags.indexOf(this.props.category) > -1;
             }).map(this.generateChildren)
           }
         </Grid>
@@ -76,11 +76,6 @@ HomePage.defaultProps = {
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeCategory: (category) => dispatch(changeCategory(category)),
-    /*onSubmitForm: (evt) => {
-      //if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-
-      dispatch(loadRepos());
-    },*/
   };
 }
 
