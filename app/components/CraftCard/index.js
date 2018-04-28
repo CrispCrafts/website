@@ -101,7 +101,7 @@ const Image = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: none;
-  background-image: linear-gradient(to top, rgba(198, 40, 40, 0.7), rgba(0,0,0,0)), url(${props => props.src});
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0,0,0,0)), url(${props => props.src});
   transition: all 200ms ease-in;
 `;
 

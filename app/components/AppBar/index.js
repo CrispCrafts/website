@@ -28,9 +28,10 @@ const Wrapper = styled.div`
   height: 70px;
   color: white;
   box-shadow: ${props => props.fixed ? '0 1px 1px rgba(0,0,0,.15)' : ''};
-  background-color: ${props => props.fixed ? '#C62828' : '#E53935'};
+  background-color: ${props => props.fixed ? '#C62828' : 'rgba(0,0,0,0)'};
   animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : ''};
 `;
+// ${props => props.fixedNav ? 'fixed' : 'absolute'}
 // `${slideUp} 300ms cubic-bezier(.165,.84,.44,1)`
 
 const Title = styled.div`
@@ -53,7 +54,7 @@ const Container = styled.div`
   align-content: center;
   align-items: ${props => props.fixed ? 'center' : 'flex-start'};
   margin: 0 auto;
-  padding: ${props => props.fixed ? '0 4vw' : '20px 4vw'};
+  padding: ${props => props.fixed ? '0 1vw' : '20px 1vw'};
 `;
 
 const TitleSection = styled.div`
@@ -100,12 +101,16 @@ class AppBar extends Component {
   }
 
   handleScroll = () => {
-    if (window.scrollY > this.props.fixedPosition && !this.state.fixedNav) {
+    let fixedPosition = 100;
+    if(this.props.location.pathname === '/') {
+      fixedPosition = 300;
+    }
+    if (window.scrollY > fixedPosition && !this.state.fixedNav) {
       this.setState({
         fixed: true,
         fixedNav: true,
       });
-    } else if (window.scrollY < this.props.fixedPosition && this.state.fixedNav) {
+    } else if (window.scrollY < fixedPosition && this.state.fixedNav) {
       this.setState({
         fixedNav: false,
       });
@@ -136,8 +141,8 @@ class AppBar extends Component {
               </span>
             </Title>
             {
-              this.state.fixedNav &&
-              <CraftSelector small={true}/>
+              // this.state.fixedNav &&
+              // <CraftSelector small={true}/>
             }
           </TitleSection>
           <NavItems>
@@ -161,7 +166,6 @@ AppBar.propTypes = {
 
 AppBar.defaultProps = {
   currentPage: 'Crafts',
-  fixedPosition: 300,
   selected: 0,
   hideSelector: false,
 };
