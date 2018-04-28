@@ -29,8 +29,9 @@ const Wrapper = styled.div`
   color: white;
   box-shadow: ${props => props.fixed ? '0 1px 1px rgba(0,0,0,.15)' : ''};
   background-color: ${props => props.fixed ? '#C62828' : '#E53935'};
-  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : `${slideUp} 300ms cubic-bezier(.165,.84,.44,1)`};
+  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : ''};
 `;
+// `${slideUp} 300ms cubic-bezier(.165,.84,.44,1)`
 
 const Title = styled.div`
   display: flex;
@@ -46,6 +47,7 @@ const Title = styled.div`
 
 const Container = styled.div`
   height: 100%;
+  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -92,7 +94,6 @@ class AppBar extends Component {
   }
 
   handleAnimationEnd = () => {
-    console.log(this.state.fixedNav)
     this.setState({
       fixed: this.state.fixedNav
     });
@@ -136,7 +137,7 @@ class AppBar extends Component {
             </Title>
             {
               this.state.fixedNav &&
-              <CraftSelector fixedNav={this.state.fixedNav} />
+              <CraftSelector small={true}/>
             }
           </TitleSection>
           <NavItems>

@@ -163,13 +163,17 @@ export default class CraftSelector extends Component {
   }
 
   selectedCategory = (category) => {
+    console.log(category)
     switch (category) {
       case 'All':
         return 'EVERYTHING';
       case 'IoT':
         return 'I O T';
       default:
-        return category.toUpperCase();
+        if (category) {
+          return category.toUpperCase();
+        }
+        return '';
     }
   }
 
@@ -223,8 +227,7 @@ export default class CraftSelector extends Component {
 
   render() {
     return (
-      <Wrapper
-        fixedNav={this.props.fixedNav}>
+      <Wrapper>
         <Title>
           <Arrow onClick={() => this.moveNext(false)}>
             <i className="fas fa-caret-left" />
@@ -234,10 +237,12 @@ export default class CraftSelector extends Component {
             <i className="fas fa-caret-right" />
           </Arrow>
         </Title>
-        <DotList
-          fixedNav={this.props.fixedNav}>
-          {this.generateDots()}
-        </DotList>
+        {
+          !this.props.small &&
+          <DotList>
+            {this.generateDots()}
+          </DotList>
+        }
       </Wrapper>
     );
   }

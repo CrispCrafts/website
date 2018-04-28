@@ -19,7 +19,6 @@ import { projects } from 'utils/mock-projects';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectRepos, makeSelectLoading } from 'containers/App/selectors';
 import { changeCategory } from './actions';
 import { makeSelectCategory } from './selectors';
 import reducer from './reducer';
