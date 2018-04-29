@@ -1,6 +1,7 @@
 import React from 'react';
 // import { FormattedMessage } from 'react-intl';
 import styled, {keyframes} from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import { projects } from 'utils/mock-projects';
 import languageColor from 'utils/language-colors';
 
@@ -15,6 +16,10 @@ const riseUp = keyframes`
     }
 `;
 
+const Title = styled.div`
+  font-size: 2em;
+`;
+
 const Wrapper = styled.div`
     width: 100%;
     min-height: 100%;
@@ -23,8 +28,25 @@ const Wrapper = styled.div`
     padding: 0 24px;
     background: #E53935;
     font-weight: bolder;
+    text-align: center;
+    font-size: 1.5em;
     color: ${props => props.theme};
     animation: ${riseUp} ease-in-out 400ms;
+`;
+
+const Link = styled(NavLink)`
+  font-weight: 200;
+  background-size: ${props => props.selected ? '100% 2px, auto' : '0 2px, auto'};
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-image: linear-gradient(#FFEB3B, #FFEB3B);
+  transition: all 200ms ease-in;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  &:hover {
+    background-size: 100% 2px, auto;
+  }
 `;
 
 export default class AboutPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -35,9 +57,15 @@ export default class AboutPage extends React.PureComponent { // eslint-disable-l
     render() {
       return (
         <Wrapper theme={'#FFEB3B'}>
-            <div>About Me</div>
-            <div>Just an idie developer from California that likes to build and share stuff :)</div>
-            <div>Still need to finish this page</div>
+            <Title>About Me</Title>
+            <div>Just an idie developer/student from California that likes to build stuff :)</div>
+            <div>Need help with an upcoming project or application?
+            <br/>Have a look through some of my <Link to="/">crafts</Link> and consider <Link to="/hireme">hiring me</Link>!</div>
+            <br/>
+            <Title>Why Crisp Crafts?</Title>
+            <div>The name was made from taking the first part of Cristian and my last initial P</div>
+            <div>Cristian Ponce -> CrisP Crafts</div>
+            <div>Pronounced as Cris P (Crispy /ˈkrispē/)</div>
         </Wrapper>
       );
     }

@@ -12,7 +12,7 @@ export default function AppFooter() {
     justify-content: space-between;
     align-items: center;
     padding: 0 4vw;
-    color: white;
+    color: #ef9a9a;
     border-top: 1px solid #B71C1C;
   `;
 
@@ -27,7 +27,6 @@ export default function AppFooter() {
   `;
 
   const Icon = styled.a`
-    color: white;
     font-size: 18px;
     margin: 0 8px;
     color: inherit;

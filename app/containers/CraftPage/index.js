@@ -92,7 +92,11 @@ const Languages = styled.div`
 `;
 
 const Tags = styled.div`
-  font-size: 1.3em;
+  font-size: 1.1em;
+  margin: 8px 0px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const Tech = styled.div`
@@ -112,6 +116,13 @@ const SameLine = styled.div`
   align-items: center;
   align-content: center;
   flex-direction: row;
+`;
+
+const Tag = styled.div`
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.2);
+  margin: 0px 8px 0px 0px;
+  border-radius: 5px;
 `;
 
 export default class CraftPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -147,6 +158,16 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
       );
     });
   };
+
+  generateTags = (tags = []) => {
+    return tags.map((t) => {
+      return (
+        <Tag key={t}>
+          {t}
+        </Tag>
+      );
+    });
+  }
   
   render() {
     const {
@@ -175,7 +196,7 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
           <Languages>{this.generateLanguageColors(languages)}</Languages>
         </SameLine>
         <SubMessage>{sub}</SubMessage>
-        <Tags>{tags.join(', ')}</Tags>
+        <Tags>{this.generateTags(tags)}</Tags>
         <div>
           {
             this.state.link &&

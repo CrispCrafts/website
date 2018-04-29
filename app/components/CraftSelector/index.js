@@ -46,12 +46,15 @@ const Wrapper = styled.div`
   justify-content: ${props => props.fixedNav ? 'center' : 'flex-end'};
   align-items: center;
   transition: all 100ms ease in;
+`;
+
+/*
   @media (max-width: 700px) {
     margin-left: ${props => props.fixedNav ? '8px' : '0px'};
     align-items: flex-start;
     justify-content: ${props => props.fixedNav ? 'center' : 'flex-start'};
   }
-`;
+*/
 
 const Arrow = styled.div`
   color: #FFEE58;
@@ -59,20 +62,26 @@ const Arrow = styled.div`
   font-size: 2em;
   text-align: center;
   cursor: pointer;
+`;
+/*
   @media (max-width: 700px) {
     display: none;
   }
-`;
+*/
+
 
 const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
+`;
+
+/*
   @media (max-width: 700px) {
     padding: 0;
   }
-`;
+*/
 
 const Text = styled.div`
   padding: 0px 16px;
@@ -83,11 +92,13 @@ const Text = styled.div`
   animation-fill-mode: both;
   -webkit-transform-origin: center bottom;
   transform-origin: center bottom;
+`;
+/*
   @media (max-width: 700px) {
     min-width: 100px;
     padding: 0;
   }
-`;
+*/
 
 const DotList = styled.ul`
   position: relative;
@@ -102,10 +113,12 @@ const DotList = styled.ul`
   -ms-user-select: none;
   user-select: none;
   display: ${props => props.fixedNav ? 'none' : 'inline-block' };
+`;
+/*
   @media (max-width: 700px) {
     display: none;
   }
-`;
+*/
 
 const DotA = styled.div`
   top: 0;

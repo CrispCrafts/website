@@ -250,12 +250,10 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
           cornerRad={this.props.cornerRad}
           theme={this.props.theme}
         >
-          <div>Craft: {this.props.title}</div>
-          <div>Created: {this.props.date || 'February 12'}</div>
-          <div>Last Updated: {this.props.update || '2 days ago'}</div>
-          <div>Languages: {this.props.languages.join(', ')}</div>
-          <div>Technologies: {this.props.technologies.join(', ')}</div>
-          <div>Tags: {this.props.tags.join(', ')}</div>
+          <div><strong>Craft:</strong> {this.props.title}</div>
+          <div><strong>Languages:</strong> {this.props.languages.join(', ')}</div>
+          <div><strong>Technologies:</strong> {this.props.technologies.join(', ')}</div>
+          <div><strong>Tags:</strong> {this.props.tags.join(', ')}</div>
           <QuickActions>
             <span>
               {
