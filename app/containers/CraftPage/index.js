@@ -3,7 +3,6 @@ import React from 'react';
 import styled, {keyframes} from 'styled-components';
 import { projects } from 'utils/mock-projects';
 import languageColor from 'utils/language-colors';
-import starman from '../../images/starman/ss4.png';
 
 const riseUp = keyframes`
   0% {
@@ -41,9 +40,10 @@ const Action = styled.a`
 `;
 
 const Image = styled.div`
-  background-image: url(${starman});
-  background-size: cover;
+  background-image: url(${props => props.feature});
+  background-size: ${props => props.featureSize};
   background-position: center;
+  background-color: ${props => props.background};
   height: 400px;
   border-radius: 5px;
   margin: 20px 0px;
@@ -97,7 +97,7 @@ const Tags = styled.div`
 
 const Tech = styled.div`
   font-size: 1.4em;
-  margin-right: 12px;
+  margin-right: 10px;
 `;
 
 const Header = styled.div`
@@ -142,7 +142,7 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
       return (
         <Lang key={l}>
           <LanColor color={languageColor(l)}/>
-          <span style={{paddingLeft: '6px'}}>{l}</span>
+          <span style={{paddingLeft: '10px'}}>{l}</span>
         </Lang>
       );
     });
@@ -160,10 +160,16 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
     return (
       <Wrapper theme={'#FFEB3B'}>
         <Header>
-          <Icon background={this.state.theme} src={this.state.src}></Icon>
+          <Icon background={this.state.theme} src={this.state.icon}></Icon>
           <Title>{title}</Title>
         </Header>
-        <Image />
+        {
+          this.state.feature &&
+          <Image
+            feature={this.state.feature}
+            background={this.state.theme}
+            featureSize={this.state.featureSize || 'cover'} />
+        }
         <SameLine>
           <Tech>{technologies.join(', ')}</Tech>
           <Languages>{this.generateLanguageColors(languages)}</Languages>

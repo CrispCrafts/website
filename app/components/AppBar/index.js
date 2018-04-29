@@ -54,7 +54,7 @@ const Container = styled.div`
   align-content: center;
   align-items: ${props => props.fixed ? 'center' : 'flex-start'};
   margin: 0 auto;
-  padding: ${props => props.fixed ? '0 1vw' : '20px 1vw'};
+  padding: ${props => props.fixed ? '0 2vw' : '20px 2vw'};
 `;
 
 const TitleSection = styled.div`

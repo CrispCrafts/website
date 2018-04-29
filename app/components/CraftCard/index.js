@@ -224,7 +224,7 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
         <Image
           transform={this.state.hovering ? 'scale(1.2)' : 'scale(1)'}
           opacity={this.state.hovering ? 1 : 0.8}
-          src={this.props.src}
+          src={this.props.icon}
           />
         <Content
           opacity={this.state.showMore ? 0 : 1}
