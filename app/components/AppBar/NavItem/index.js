@@ -12,10 +12,11 @@ const Wrapper = styled(NavLink)`
   background-image: linear-gradient(#FFEB3B, #FFEB3B);
   transition: all 200ms ease-in;
   cursor: pointer;
-  color: inherit;
+  color: ${props => props.selected ? 'white' : 'inherit'};
   text-decoration: none;
   &:hover {
     background-size: 100% 2px, auto;
+    color: white;
   }
 `;
 

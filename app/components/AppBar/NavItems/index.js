@@ -15,6 +15,7 @@ export default class NavItems extends Component {
     const Wrapper = styled.div`
       padding: 0;
       display: flex;
+      color: #ef9a9a;
       flex-direction: row;
       @media (max-width: 700px) {
         display: none;

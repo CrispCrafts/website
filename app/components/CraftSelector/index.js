@@ -46,12 +46,15 @@ const Wrapper = styled.div`
   justify-content: ${props => props.fixedNav ? 'center' : 'flex-end'};
   align-items: center;
   transition: all 100ms ease in;
+`;
+
+/*
   @media (max-width: 700px) {
     margin-left: ${props => props.fixedNav ? '8px' : '0px'};
     align-items: flex-start;
     justify-content: ${props => props.fixedNav ? 'center' : 'flex-start'};
   }
-`;
+*/
 
 const Arrow = styled.div`
   color: #FFEE58;
@@ -59,20 +62,26 @@ const Arrow = styled.div`
   font-size: 2em;
   text-align: center;
   cursor: pointer;
+`;
+/*
   @media (max-width: 700px) {
     display: none;
   }
-`;
+*/
+
 
 const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   align-content: center;
+`;
+
+/*
   @media (max-width: 700px) {
     padding: 0;
   }
-`;
+*/
 
 const Text = styled.div`
   padding: 0px 16px;
@@ -83,11 +92,13 @@ const Text = styled.div`
   animation-fill-mode: both;
   -webkit-transform-origin: center bottom;
   transform-origin: center bottom;
+`;
+/*
   @media (max-width: 700px) {
     min-width: 100px;
     padding: 0;
   }
-`;
+*/
 
 const DotList = styled.ul`
   position: relative;
@@ -102,10 +113,12 @@ const DotList = styled.ul`
   -ms-user-select: none;
   user-select: none;
   display: ${props => props.fixedNav ? 'none' : 'inline-block' };
+`;
+/*
   @media (max-width: 700px) {
     display: none;
   }
-`;
+*/
 
 const DotA = styled.div`
   top: 0;
@@ -144,7 +157,6 @@ export default class CraftSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedCategory: 0,
       bounce: true,
     };
   }
@@ -164,41 +176,45 @@ export default class CraftSelector extends Component {
   }
 
   selectedCategory = (category) => {
-    let name = categories[category];
-    switch (name) {
+    console.log(category)
+    switch (category) {
       case 'All':
         return 'EVERYTHING';
       case 'IoT':
         return 'I O T';
       default:
-        return name.toUpperCase();
+        if (category) {
+          return category.toUpperCase();
+        }
+        return '';
     }
   }
 
   moveNext = (next) => {
+    let currentIndex = categories.indexOf(this.props.category);
     if (next) {
-      if (this.state.selectedCategory < categories.length - 1) {
+      if (currentIndex < categories.length - 1) {
         this.setState({
           bounce: true,
-          selectedCategory: this.state.selectedCategory + 1,
         });
+        this.props.onChangeCategory(categories[currentIndex + 1]);
       } else {
         this.setState({
           bounce: true,
-          selectedCategory: 0
         });
+        this.props.onChangeCategory(categories[0]);
       }
     } else {
-      if (this.state.selectedCategory > 0) {
+      if (currentIndex > 0) {
         this.setState({
           bounce: true,
-          selectedCategory: this.state.selectedCategory - 1,
         });
+        this.props.onChangeCategory(categories[currentIndex - 1]);
       } else {
         this.setState({
           bounce: true,
-          selectedCategory: categories.length-1,
         });
+        this.props.onChangeCategory(categories[categories.length - 1]);
       }
     }
   }
@@ -209,14 +225,14 @@ export default class CraftSelector extends Component {
         <DotLi
           key={c}
           onClick={() => {
-            if(c !== categories[this.state.selectedCategory]) {
+            if(c !== this.props.category) {
               this.setState({
                 bounce: true,
-                selectedCategory: indx,
               });
+              this.props.onChangeCategory(categories[indx]);
             }
           }}>
-          <DotA selected={c === categories[this.state.selectedCategory]} />
+          <DotA selected={c === this.props.category} />
         </DotLi>
       );
     });
@@ -224,21 +240,22 @@ export default class CraftSelector extends Component {
 
   render() {
     return (
-      <Wrapper
-        fixedNav={this.props.fixedNav}>
+      <Wrapper>
         <Title>
           <Arrow onClick={() => this.moveNext(false)}>
             <i className="fas fa-caret-left" />
           </Arrow>
-          <Text innerRef={(text) => this.text = text} bounce={this.state.bounce}>{this.selectedCategory(this.state.selectedCategory)}</Text>
+          <Text innerRef={(text) => this.text = text} bounce={this.state.bounce}>{this.selectedCategory(this.props.category)}</Text>
           <Arrow onClick={() => this.moveNext(true)}>
             <i className="fas fa-caret-right" />
           </Arrow>
         </Title>
-        <DotList
-          fixedNav={this.props.fixedNav}>
-          {this.generateDots()}
-        </DotList>
+        {
+          !this.props.small &&
+          <DotList>
+            {this.generateDots()}
+          </DotList>
+        }
       </Wrapper>
     );
   }

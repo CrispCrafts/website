@@ -15,12 +15,47 @@ const riseUp = keyframes`
   }
 `;
 
+const Icon = styled.div`
+  width: 72px;
+  min-width: 72px;
+  height: 72px;
+  min-height: 72px;
+  margin-right: 12px;
+  border-radius: 5px;
+  background-color: ${props => props.background};
+  background-image: url(${props => props.src});
+  background-position: center;
+  background-size: cover;
+`;
+
+const Action = styled.a`
+  margin: 8px;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: all 200ms ease-in;
+  &:hover {
+    color: #FFEB3B;
+  }
+`;
+
+const Image = styled.div`
+  background-image: url(${props => props.feature});
+  background-size: ${props => props.featureSize};
+  background-position: center;
+  background-color: ${props => props.background};
+  height: 400px;
+  border-radius: 5px;
+  margin: 20px 0px;
+`;
+
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  padding-bottom: 24px;
   background: #E53935;
   font-weight: bolder;
   color: ${props => props.theme};
@@ -28,22 +63,66 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  width: 100%;
   font-size: 3em;
 `;
 
 const SubMessage = styled.div`
   width: 100%;
-  max-width: 500px;
+  padding: 8px 0px;
   font-size: 1.5em;
+`;
+
+const LanColor = styled.span`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${props => props.color}
+`;
+
+const Lang = styled.span`
+  display: flex;
+  align-items: center;
+  width: -fit-content;
+  margin-right: 10px;
 `;
 
 const Languages = styled.div`
   font-size: 1.3em;
+  font-weight: 600;
 `;
 
 const Tags = styled.div`
   font-size: 1.1em;
+  margin: 8px 0px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const Tech = styled.div`
+  font-size: 1.4em;
+  margin-right: 10px;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+`;
+
+const SameLine = styled.div`
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+`;
+
+const Tag = styled.div`
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.2);
+  margin: 0px 8px 0px 0px;
+  border-radius: 5px;
 `;
 
 export default class CraftPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -53,6 +132,7 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
       id: '',
       title: '',
       sub: '',
+      technologies: [],
       tags: [],
       languages: [],
     };
@@ -70,24 +150,67 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
 
   generateLanguageColors = (languages = []) => {
     return languages.map((l) => {
-      return <div key={l} style={{color: languageColor(l)}}>{l}</div>;
+      return (
+        <Lang key={l}>
+          <LanColor color={languageColor(l)}/>
+          <span style={{paddingLeft: '10px'}}>{l}</span>
+        </Lang>
+      );
     });
   };
+
+  generateTags = (tags = []) => {
+    return tags.map((t) => {
+      return (
+        <Tag key={t}>
+          {t}
+        </Tag>
+      );
+    });
+  }
   
   render() {
     const {
       title,
       sub,
       tags,
-      languages
+      languages,
+      technologies
     } = this.state;
 
     return (
       <Wrapper theme={'#FFEB3B'}>
-        <Title>{title}</Title>
-        <Languages>{this.generateLanguageColors(languages)}</Languages>
+        <Header>
+          <Icon background={this.state.theme} src={this.state.icon}></Icon>
+          <Title>{title}</Title>
+        </Header>
+        {
+          this.state.feature &&
+          <Image
+            feature={this.state.feature}
+            background={this.state.theme}
+            featureSize={this.state.featureSize || 'cover'} />
+        }
+        <SameLine>
+          <Tech>{technologies.join(', ')}</Tech>
+          <Languages>{this.generateLanguageColors(languages)}</Languages>
+        </SameLine>
         <SubMessage>{sub}</SubMessage>
-        <Tags>{tags.join(', ')}</Tags>
+        <Tags>{this.generateTags(tags)}</Tags>
+        <div>
+          {
+            this.state.link &&
+            <Action href={this.state.link} target="_blank" highlightColor={this.state.theme}>
+              <i className="fas fa-link" />
+            </Action>
+          }
+          {
+            (!this.state.private && this.state.git) &&
+            <Action href={this.state.git} target="_blank" highlightColor={this.state.theme}>
+              <i className="fab fa-github" />
+            </Action>
+          }
+        </div>
       </Wrapper>
     );
   }

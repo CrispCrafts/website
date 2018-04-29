@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import chip from '../../images/chip.png';
 import NavItems from './NavItems';
 import NavItem from './NavItem';
+import { withRouter } from 'react-router-dom';
 import CraftSelector from 'components/CraftSelector';
 
 const slideDown = keyframes`
@@ -27,9 +28,11 @@ const Wrapper = styled.div`
   height: 70px;
   color: white;
   box-shadow: ${props => props.fixed ? '0 1px 1px rgba(0,0,0,.15)' : ''};
-  background-color: ${props => props.fixed ? '#C62828' : '#E53935'};
-  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : `${slideUp} 300ms cubic-bezier(.165,.84,.44,1)`};
+  background-color: ${props => props.fixed ? '#C62828' : 'rgba(0,0,0,0)'};
+  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : ''};
 `;
+// ${props => props.fixedNav ? 'fixed' : 'absolute'}
+// `${slideUp} 300ms cubic-bezier(.165,.84,.44,1)`
 
 const Title = styled.div`
   display: flex;
@@ -45,12 +48,13 @@ const Title = styled.div`
 
 const Container = styled.div`
   height: 100%;
+  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-content: center;
   align-items: ${props => props.fixed ? 'center' : 'flex-start'};
   margin: 0 auto;
-  padding: ${props => props.fixed ? '0 4vw' : '20px 4vw'};
+  padding: ${props => props.fixed ? '0 2vw' : '20px 2vw'};
 `;
 
 const TitleSection = styled.div`
@@ -71,7 +75,7 @@ const LogoAccent = styled.span`
   color: #FFF176;
 `;
 
-export default class AppBar extends Component {
+class AppBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,19 +95,22 @@ export default class AppBar extends Component {
   }
 
   handleAnimationEnd = () => {
-    console.log(this.state.fixedNav)
     this.setState({
       fixed: this.state.fixedNav
     });
   }
 
   handleScroll = () => {
-    if (window.scrollY > this.props.fixedPosition && !this.state.fixedNav) {
+    let fixedPosition = 100;
+    if(this.props.location.pathname === '/') {
+      fixedPosition = 300;
+    }
+    if (window.scrollY > fixedPosition && !this.state.fixedNav) {
       this.setState({
         fixed: true,
         fixedNav: true,
       });
-    } else if (window.scrollY < this.props.fixedPosition && this.state.fixedNav) {
+    } else if (window.scrollY < fixedPosition && this.state.fixedNav) {
       this.setState({
         fixedNav: false,
       });
@@ -134,14 +141,14 @@ export default class AppBar extends Component {
               </span>
             </Title>
             {
-              this.state.fixedNav &&
-              <CraftSelector fixedNav={this.state.fixedNav} />
+              // this.state.fixedNav &&
+              // <CraftSelector small={true}/>
             }
           </TitleSection>
           <NavItems>
-            <NavItem value={0} selected={this.props.selected === 0} to={'/'}>Home</NavItem>
-            <NavItem value={1} selected={this.props.selected === 1} to={'/about'}>About</NavItem>
-            <NavItem value={2} selected={this.props.selected === 2} to={'/hireme'}>Hire Me</NavItem>
+            <NavItem value={0} selected={this.props.location.pathname === '/'} to={'/'}>Home</NavItem>
+            <NavItem value={1} selected={this.props.location.pathname === '/about'} to={'/about'}>About</NavItem>
+            <NavItem value={2} selected={this.props.location.pathname === '/hireme'} to={'/hireme'}>Hire Me</NavItem>
           </NavItems>
         </Container>
       </Wrapper>
@@ -159,7 +166,7 @@ AppBar.propTypes = {
 
 AppBar.defaultProps = {
   currentPage: 'Crafts',
-  fixedPosition: 300,
   selected: 0,
   hideSelector: false,
 };
+export default withRouter(AppBar);

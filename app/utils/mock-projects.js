@@ -2,12 +2,18 @@ export const projects = [
   {
     id: 'starmans-voyage',
     title: 'Starman\'s Voyage',
-    sub: 'A 2D Space Shooter based on the SpaceX Falcon Heavy launch of the Tesla Roadster into space made in the Unity Game Engine',
+    sub: 'A 2D Space Shooter based on the SpaceX Falcon Heavy launch of the Tesla Roadster into space made with the Unity Game Engine',
     overlay: 'rgba(0,0,0,0.8)',
     theme: '#4FC3F7',
-    src: 'https://raw.githubusercontent.com/Cristian006/starman/master/Assets/Icons/BlackIcon_512x512-05.png?token=AOCCjTDWLa2WrS9e3XOQYb42CLiyL7r0ks5a6sl8wA%3D%3D',
     link: 'https://play.google.com/store/apps/details?id=com.CrispCrafts.StarmansVoyage',
     git: 'https://github.com/Cristian006/StarmansVoyage',
+    icon: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/starmans-voyage%2Ficon.png?alt=media',
+    feature: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/starmans-voyage%2Ffeature.png?alt=media',
+    screenshots: [
+      'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/starmans-voyage%2Fss1.PNG?alt=media',
+      'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/starmans-voyage%2Fss2.PNG?alt=media',
+      'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/starmans-voyage%2Fss3.PNG?alt=media'
+    ],
     private: true,
     languages: [
       'C#',
@@ -28,8 +34,15 @@ export const projects = [
     sub: 'An IOS app for adopting dogs in your area!',
     overlay: 'rgba(0,0,0,0.8)',
     theme: '#FFC107',
-    src: 'https://raw.githubusercontent.com/Cristian006/doge-breeds/master/screenshots/Dogie.png',
     git: 'https://github.com/Cristian006/doge-breeds',
+    icon: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/doge-breeds%2Ficon.png?alt=media',
+    feature: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/doge-breeds%2Ffeature.png?alt=media',
+    featureSize: 'contain',
+    screenshots: [
+      'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/doge-breeds%2Fss1.png?alt=media',
+      'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/doge-breeds%2Fss2.png?alt=media',
+      'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/doge-breeds%2Fss3.png?alt=media'
+    ],
     languages: [
       'Swift',
     ],
@@ -42,12 +55,41 @@ export const projects = [
     ],
   },
   {
+    id: 'leonflix',
+    title: 'Leonflix',
+    sub: 'A modular search tool for online content.',
+    overlay: 'rgba(0,0,0,0.8)',
+    theme: '#00E676',
+    private: true,
+    hide: true,
+    icon: '',
+    feature: '',
+    featureSize: 'contain',
+    link: 'http://leonflix.net',
+    screenshots: [],
+    languages: [
+      'JavaScript',
+    ],
+    technologies: [
+      'Electron',
+      'React',
+    ],
+    tags: [
+      'Desktop',
+      'Windows',
+      'MacOS',
+      'Linux',
+    ],
+  },
+  {
     id: 'greek-wars',
     title: 'Greek Wars',
     sub: 'A 2.5D platformer made with the Unity Game Engine',
     overlay: 'rgba(0,0,0,0.8)',
-    theme: '#FFEB3B',
-    src: 'https://raw.githubusercontent.com/Cristian006/project-byte/develop/Assets/Resources/UI/Greek%20Wars%20Title.png?token=AOCCjafo77jKaF_Vu8tBJD0moDLpEvwUks5a6s5ewA%3D%3D',
+    theme: '#FDD835',
+    icon: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/greek-wars%2Ficon.png?alt=media',
+    feature: '',
+    screenshots: [],
     link: 'https://greekwars.crispcrafts.com',
     git: 'https://github.com/Cristian006/',
     private: true,
@@ -69,9 +111,11 @@ export const projects = [
     title: 'Colors',
     sub: 'A set of useful color tools',
     overlay: 'linear-gradient(to bottom, #108dc7, #ef8e38)',
-    theme: '#ECEFF1',
-    color: '#000000',
-    src: 'https://raw.githubusercontent.com/CrispCrafts/colors/master/ColorLogo.png',
+    theme: '#8BC34A',
+    color: '#fff',
+    icon: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/colors%2Ficon.png?alt=media',
+    feature: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/colors%2Fss1.png?alt=media',
+    screenshots: [],
     link: 'https://colors.crispcrafts.com',
     git: 'https://github.com/CrispCrafts/colors',
     languages: [
@@ -91,9 +135,11 @@ export const projects = [
     sub: 'A set of useful ascii tools',
     overlay: 'linear-gradient(to bottom, #108dc7, #ef8e38)',
     theme: '#4CAF50',
-    src: 'http://mewbies.com/geek_fun_files/caca/cacademo_matrix.png',
+    icon: 'http://mewbies.com/geek_fun_files/caca/cacademo_matrix.png',
+    feature: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/characters%2Ffeature.png?alt=media',
+    screenshots: [],
     link: 'https://characters.crispcrafts.com',
-    git: 'https://github.com/CrispCrafts/colors',
+    git: 'https://github.com/CrispCrafts/characters',
     languages: [
       'JavaScript',
     ],
@@ -112,7 +158,8 @@ export const projects = [
     overlay: 'linear-gradient(to top, #212121, rgba(0,0,0,0))',
     theme: 'rgba(0,0,0,0.8)',
     color: '#fff',
-    src: 'https://raw.githubusercontent.com/Cristian006/ReactiveMirror/master/Reactive%20Mirror.png',
+    icon: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/reactive-mirror%2Ficon.png?alt=media',
+    feature: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/reactive-mirror%2Ffeature.png?alt=media',
     link: 'https://reactive-mirror.crispcrafts.com',
     git: 'https://github.com/Cristian006/ReactiveMirror',
     languages: [
@@ -132,7 +179,7 @@ export const projects = [
     title: 'Iris\'s Hair Salon',
     sub: 'Contract Web Development Work for Iris\'s Hair salon',
     theme: 'linear-gradient(to bottom, #108dc7, #ef8e38)',
-    src: 'http://iris-hair-salon.com/files/long-haircut.jpg',
+    icon: 'http://iris-hair-salon.com/files/long-haircut.jpg',
     link: 'http://iris-hair-salon.com',
     private: true,
     git: 'http://github.com/Cristian006/irishairsalon',
@@ -153,7 +200,7 @@ export const projects = [
     sub: 'Contract Web Development Work for construction company based in Florida',
     overlay: 'linear-gradient(to bottom, #108dc7, #ef8e38)',
     theme: '#388E3C',
-    src: 'http://carrillos-construction.com/images/lawnmower.png',
+    icon: 'http://carrillos-construction.com/images/lawnmower.png',
     link: 'http://carrillos-construction.com',
     private: true,
     git: 'https://github.com/Cristian006/carrillosconstruction',
@@ -176,3 +223,15 @@ export const categories = [
   'Games',
   'IoT',
 ];
+
+/*
+let fileData = NSData() // get data...
+let storageRef = storage.reference().child("myFiles/myFile")
+storageRef.putData(fileData).observeStatus(.Success) { (snapshot) in
+  // When the image has successfully uploaded, we get it's download URL
+  let downloadURL = snapshot.metadata?.downloadURL()?.absoluteString
+  // Write the download URL to the Realtime Database
+  let dbRef = database.reference().child("myFiles/myFile")
+  dbRef.setValue(downloadURL)
+}
+*/

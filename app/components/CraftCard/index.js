@@ -101,7 +101,7 @@ const Image = styled.div`
   background-position: center;
   background-size: cover;
   background-repeat: none;
-  background-image: linear-gradient(to top, rgba(198, 40, 40, 0.7), rgba(0,0,0,0)), url(${props => props.src});
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0,0,0,0)), url(${props => props.src});
   transition: all 200ms ease-in;
 `;
 
@@ -224,7 +224,7 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
         <Image
           transform={this.state.hovering ? 'scale(1.2)' : 'scale(1)'}
           opacity={this.state.hovering ? 1 : 0.8}
-          src={this.props.src}
+          src={this.props.icon}
           />
         <Content
           opacity={this.state.showMore ? 0 : 1}
@@ -250,12 +250,10 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
           cornerRad={this.props.cornerRad}
           theme={this.props.theme}
         >
-          <div>Craft: {this.props.title}</div>
-          <div>Created: {this.props.date || 'February 12'}</div>
-          <div>Last Updated: {this.props.update || '2 days ago'}</div>
-          <div>Languages: {this.props.languages.join(', ')}</div>
-          <div>Technologies: {this.props.technologies.join(', ')}</div>
-          <div>Tags: {this.props.tags.join(', ')}</div>
+          <div><strong>Craft:</strong> {this.props.title}</div>
+          <div><strong>Languages:</strong> {this.props.languages.join(', ')}</div>
+          <div><strong>Technologies:</strong> {this.props.technologies.join(', ')}</div>
+          <div><strong>Tags:</strong> {this.props.tags.join(', ')}</div>
           <QuickActions>
             <span>
               {
