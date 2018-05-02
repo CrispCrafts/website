@@ -55,6 +55,28 @@ export const projects = [
     ],
   },
   {
+    id: 'gol',
+    title: 'Game Of Life',
+    sub: 'A react implementation of Conway\'s Game of Life.',
+    overlay: 'rgba(0,0,0,0.8)',
+    theme: '#fb3550',
+    icon: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/gol%2Ffeature.png?alt=media',
+    feature: 'https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/gol%2Ffeature.png?alt=media',
+    featureSize: 'cover',
+    link: 'http://gol.crispcrafts.com',
+    git: 'https://github.com/Cristian006/game-of-life',
+    screenshots: [],
+    languages: [
+      'JavaScript',
+    ],
+    technologies: [
+      'React',
+    ],
+    tags: [
+      'Web',
+    ],
+  },
+  {
     id: 'leonflix',
     title: 'Leonflix',
     sub: 'A modular search tool for online content.',
