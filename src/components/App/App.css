@@ -1,0 +1,79 @@
+body {
+  background: #1e2630;
+  color: #323f4f;
+  font-family: 'Dosis', sans-serif;
+}
+
+::selection {
+  background-color: white;
+  color: #fb3550;
+}
+
+.box {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-left: -1px;
+  margin-bottom: -1px;
+  transition: all 500ms ease-out;
+  cursor: pointer;
+  user-select: none;
+}
+
+.off {
+  background-color: #2b82b8;
+}
+
+.on {
+  background-color: #fb3550;
+}
+
+.visited {
+  background-color: rgba(251, 53, 80, 0.3);
+}
+  
+.box:hover { 
+  background: #ff6883;
+}
+
+.center {
+  margin: 0 auto;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.spacing {
+  justify-content: space-around;
+  max-width: 80%;
+}
+
+button {
+  user-select: none;
+  background: transparent;
+  border: none;
+  padding: 1vw 1vw;
+  cursor: pointer;
+  color: #323f4f; /*#45586f;/*59718e;/*#92a4bb;*/
+  transition: all 200ms ease-in;
+}
+
+button:hover {
+  color: #fb3550;
+}
+
+.grid {
+  width: 150px;
+  line-height: 0;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.title {
+  color: #45586f;
+  margin-top: 30px;
+  text-align: center;
+}
