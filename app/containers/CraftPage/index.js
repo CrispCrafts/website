@@ -3,6 +3,7 @@ import React from 'react';
 import styled, {keyframes} from 'styled-components';
 import { projects } from 'utils/mock-projects';
 import languageColor from 'utils/language-colors';
+import ReactMarkdown from 'react-markdown';
 
 const riseUp = keyframes`
   0% {
@@ -211,6 +212,10 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
             </Action>
           }
         </div>
+        <ReactMarkdown
+          className="result"
+          source={"# HELLO\n### HEY"}
+        />
       </Wrapper>
     );
   }

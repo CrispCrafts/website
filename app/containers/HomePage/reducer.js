@@ -20,7 +20,7 @@ const initialState = fromJS({
   category: 'All',
 });
 
-function homeReducer(state = initialState, action) {
+function appReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_CATEGORY:
       return state.set('category', action.category);
@@ -29,4 +29,4 @@ function homeReducer(state = initialState, action) {
   }
 }
 
-export default homeReducer;
+export default appReducer;

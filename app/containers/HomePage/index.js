@@ -15,13 +15,14 @@ import styled, { keyframes } from 'styled-components';
 import CraftCard from 'components/CraftCard';
 import AppHeader from 'components/AppHeader';
 import Fab from 'components/Fab';
-import { projects } from 'utils/mock-projects';
+// import { projects } from 'utils/mock-projects';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { changeCategory } from './actions';
-import { makeSelectCategory } from './selectors';
+import { changeCategory, loadCategories } from 'containers/App/actions';
+import { makeSelectCategory } from 'containers/App/selectors';
 import reducer from './reducer';
+import saga from './saga';
 
 import injectReducer from 'utils/injectReducer';
 
@@ -59,13 +60,17 @@ const Grid = styled.div`
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function  
   generateChildren = (c) => <CraftCard key={c.id} {...c} />;
 
+  componentDidMount() {
+    this.props.loadCategories();
+  }
+
   render() {
     return (
       <Wrapper>
         <AppHeader category={this.props.category} onChangeCategory={this.props.onChangeCategory}/>
         <Grid>
           {
-            this.props.cards.filter((x) => {
+            this.props.crafts.filter((x) => {
               if (!x.hide && this.props.category === 'All') {
                 return true;
               }
@@ -81,12 +86,15 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
 HomePage.defaultProps = {
   category: 'All',
-  cards: projects,
+  crafts: [],
+  onChangeCategory: () => {},
+  loadCategories: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeCategory: (category) => dispatch(changeCategory(category)),
+    loadCategories: () => dispatch(loadCategories()),
   };
 }
 
@@ -97,8 +105,10 @@ const mapStateToProps = createStructuredSelector({
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'home', reducer });
+const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(
   withReducer,
+  withSaga,
   withConnect,
 )(HomePage);
