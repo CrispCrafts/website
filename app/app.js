@@ -28,7 +28,7 @@ var config = {
   messagingSenderId: "510860329226"
 };
 
-firebase.initializeApp(config);
+var app = firebase.initializeApp(config);
 
 // Import root app
 import App from 'containers/App';

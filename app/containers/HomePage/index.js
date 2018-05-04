@@ -9,6 +9,7 @@
  * the linting exception.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 // import messages from './messages';
@@ -16,15 +17,26 @@ import CraftCard from 'components/CraftCard';
 import AppHeader from 'components/AppHeader';
 import Fab from 'components/Fab';
 // import { projects } from 'utils/mock-projects';
+
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { changeCategory, loadCategories } from 'containers/App/actions';
-import { makeSelectCategory } from 'containers/App/selectors';
-import reducer from './reducer';
-import saga from './saga';
-
+import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import {
+  changeCategory,
+  loadCategories,
+  loadCrafts,
+} from 'containers/App/actions';
+import saga from './saga';
+import {
+  makeSelectCrafts,
+  makeSelectCategory,
+  makeSelectCategories,
+  makeSelectLoadingCategories,
+  makeSelectLoadingCrafts,
+  makeSelectError
+} from 'containers/App/selectors';
 
 const riseUp = keyframes`
   0% {
@@ -61,21 +73,27 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   generateChildren = (c) => <CraftCard key={c.id} {...c} />;
 
   componentDidMount() {
+    console.log("MOUNTES");
     this.props.loadCategories();
+    this.props.loadCrafts();
   }
 
   render() {
     return (
       <Wrapper>
-        <AppHeader category={this.props.category} onChangeCategory={this.props.onChangeCategory}/>
+        <AppHeader
+          loadingCategories={this.props.loadingCategories}
+          categories={this.props.categories}
+          category={this.props.category}
+          onChangeCategory={this.props.onChangeCategory}/>
         <Grid>
           {
-            this.props.crafts.filter((x) => {
+            /*(this.props.crafts.filter((x) => {
               if (!x.hide && this.props.category === 'All') {
                 return true;
               }
               return !x.hide && x.tags.indexOf(this.props.category) > -1;
-            }).map(this.generateChildren)
+            }).map(this.generateChildren)*/
           }
         </Grid>
         <Fab />
@@ -84,31 +102,58 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
 }
 
+HomePage.propTypes = {
+  loadingCategories: PropTypes.bool,
+  loadingCrafts: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  crafts: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.bool,
+  ]),
+  categories: PropTypes.array,
+  loadCategories: PropTypes.func,
+  onChangeCategory: PropTypes.func,
+};
+
 HomePage.defaultProps = {
   category: 'All',
+  categories: [],
   crafts: [],
+  loadingCategories: false,
+  loadingCrafts: false,
+  error: false,
   onChangeCategory: () => {},
   loadCategories: () => {},
+  loadCrafts: () => {},
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeCategory: (category) => dispatch(changeCategory(category)),
     loadCategories: () => dispatch(loadCategories()),
+    loadCrafts: () => dispatch(loadCrafts())
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  category: makeSelectCategory(),
+  // categories: makeSelectCategories(),
+ // category: makeSelectCategory(),
+  //crafts: makeSelectCrafts(),
+  // loadingCategories: makeSelectLoadingCategories(),
+  // loadingCrafts: makeSelectLoadingCrafts(),
+  // error: makeSelectError()
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga });
+// const withReducer = injectReducer({ key: 'home', reducer });
+ const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(
-  withReducer,
+  // withReducer,
   withSaga,
   withConnect,
 )(HomePage);

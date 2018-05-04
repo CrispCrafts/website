@@ -9,9 +9,14 @@ const makeSelectLocation = () => createSelector(
   (routeState) => routeState.get('location').toJS()
 );
 
-const makeSelectLoading = () => createSelector(
+const makeSelectLoadingCategories = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('loading')
+  (globalState) => globalState.get('loadingCategories')
+);
+
+const makeSelectLoadingCrafts = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('loadingCrafts')
 );
 
 const makeSelectError = () => createSelector(
@@ -24,9 +29,23 @@ const makeSelectCategories = () => createSelector(
   (globalState) => globalState.get('categories')
 );
 
+const makeSelectCategory = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('category')
+);
+
+const makeSelectCrafts = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('crafts')
+);
+
 export {
+  selectGlobal,
   makeSelectLocation,
+  makeSelectLoadingCategories,
+  makeSelectLoadingCrafts,
   makeSelectCategories,
-  makeSelectLoading,
+  makeSelectCategory,
+  makeSelectCrafts,
   makeSelectError,
 };

@@ -13,7 +13,7 @@ import { fromJS } from 'immutable';
 
 import {
   CHANGE_CATEGORY,
-} from './constants';
+} from 'containers/App/constants';
 
 // The initial state of the App
 const initialState = fromJS({

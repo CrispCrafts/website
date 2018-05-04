@@ -9,12 +9,14 @@ import {
 } from './constants';
 
 export function loadCrafts() {
+    console.log("GET CRAFTS");
     return  {
         type: LOAD_CRAFTS
     };
 }
 
 export function craftsLoaded(crafts) {
+    console.log(crafts);
     return {
         type: LOAD_CRAFTS_SUCCESS,
         crafts,
@@ -35,13 +37,14 @@ export function loadCategories() {
 }
   
 export function categoriesLoaded(categories) {
+    console.log(categories);
     return {
       type: LOAD_CATEGORIES_SUCCESS,
       categories,
     };
 }
   
-export function categoriesError(error) {
+export function categoriesLoadedError(error) {
     return {
       type: LOAD_CATEGORIES_ERROR,
       error,
