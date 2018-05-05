@@ -4,6 +4,21 @@ import styled, {keyframes} from 'styled-components';
 import languageColor from 'utils/language-colors';
 import ReactMarkdown from 'react-markdown';
 
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import {
+  loadCraft,
+} from './actions';
+import saga from './saga';
+import {
+  makeSelectCraft,
+  makeSelectLoadingCraft,
+  makeSelectError,
+} from './selectors';
+
 const riseUp = keyframes`
   0% {
     opacity: 0;
@@ -125,7 +140,7 @@ const Tag = styled.div`
   border-radius: 5px;
 `;
 
-export default class CraftPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class CraftPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props){
     super(props);
     this.state = {
@@ -139,7 +154,8 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
   }
 
   componentDidMount() {
-    this.getCraft(this.props.match.params.craft);
+    this.props.loadCraft();
+    // this.getCraft(this.props.match.params.craft);
   }
 
   getCraft = (id) => {
@@ -219,3 +235,32 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
     );
   }
 }
+
+CraftPage.defaultProps = {
+  craft: null,
+  loadingCraft: false,
+  error: false,
+};
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    loadCraft: () => dispatch(loadCraft()),
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  craft: makeSelectCraft(),
+  loadingCraft: makeSelectLoadingCraft(),
+  error: makeSelectError(),
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+const withReducer = injectReducer({key: 'craftdetail', reducer})
+const withSaga = injectSaga({key: 'craftdetail', saga})
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(CraftPage);

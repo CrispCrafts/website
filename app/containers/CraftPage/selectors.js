@@ -1,6 +1,25 @@
-const selectCraft = (state) => state.get('craftpage');
+import { createSelector } from 'reselect';
 
-const makeSelectCurrentCategory = () => createSelector(
-    selectCraft,
-    (craftState) => craftState.get('craft')
+const selectCraftDetail = (state) => state.get('craftdetail');
+
+const makeSelectCraft = () => createSelector(
+    selectCraftDetail,
+    (detailState) => detailState.get('craft')
 );
+
+const makeSelectLoadingCraft = () => createSelector(
+    selectCraftDetail,
+  (detailState) => detailState.get('loadingCraft')
+);
+
+const makeSelectError = () => createSelector(
+  selectCraftDetail,
+  (detailState) => detailState.get('error')
+);
+
+export {
+    selectCraftDetail,
+    makeSelectCraft,
+    makeSelectLoadingCraft,
+    makeSelectError,
+};

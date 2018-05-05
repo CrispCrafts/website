@@ -117,15 +117,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 }
 
 /*
-.filter((x) => {
-    if (!x.hide && this.props.category === 'All') {
-      return true;
-    }
-    return !x.hide && x.tags.indexOf(this.props.category) > -1;
-  })
-*/
-
-/*
 HomePage.propTypes = {
   loadingCategories: PropTypes.bool,
   loadingCrafts: PropTypes.bool,

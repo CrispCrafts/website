@@ -32,7 +32,6 @@ const crafts = () => new Promise((resolve, reject) => {
 });
 
 export function* getCategories() {
-    // console.log("GET CATEGORIES");
     const confDoc = yield categories();
 
     if (!confDoc.exists) {
@@ -41,34 +40,10 @@ export function* getCategories() {
     } else {
         yield put(categoriesLoaded(confDoc.data()['categories']));
     }
-
-    /*yield CONFIG.get().then(doc => {
-        if (!doc.exists) {
-            console.log("NO DOC CONF");
-            put(categoriesLoadedError('No such document'));
-        } else {
-            console.log(doc.data());
-            put(categoriesLoaded(doc.data().categories));
-        }
-    }).catch(err => {
-        put(categoriesLoadedError(err));
-    });*/
 }
 
 export function* getCrafts() {
-    // console.log("GET CRAFTS");
-    // const category = yield select(makeSelectCategory());
-    // console.log(category);
-    /*yield CRAFTS.get().then(snapshot => {
-        let docs = [];
-        snapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data());
-            docs.push({...doc.data(), ["id"]: doc.id});
-        });
-        put(craftsLoaded(docs));
-    }).catch(err => {
-        put(craftsLoadedError(err));
-    });*/
+
     const receivedCrafts = yield crafts();
 
     if (!receivedCrafts) {

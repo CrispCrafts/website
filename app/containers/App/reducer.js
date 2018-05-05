@@ -31,7 +31,7 @@ function appReducer(state = initialState, action) {
             .set('loadingCrafts', false);
       case LOAD_CRAFTS_ERROR:
         return state
-            .set('error', error)
+            .set('error', action.error)
             .set('loadingCrafts', false);
       case CHANGE_CATEGORY:
         return state
