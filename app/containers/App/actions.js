@@ -9,14 +9,15 @@ import {
 } from './constants';
 
 export function loadCrafts() {
-    console.log("GET CRAFTS");
+    // console.log("GET CRAFTS");
     return  {
         type: LOAD_CRAFTS
     };
 }
 
 export function craftsLoaded(crafts) {
-    console.log(crafts);
+    // console.log("LOADED");
+    // console.log(crafts);
     return {
         type: LOAD_CRAFTS_SUCCESS,
         crafts,

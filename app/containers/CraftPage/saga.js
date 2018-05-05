@@ -9,7 +9,7 @@ export function* getCraft() {
     firebase.firestore().collection('crafts').doc(location.match.params.craft)
         .get()
         .then(snapshot => {
-            console.log(snapshot);
+            // console.log(snapshot);
             yield put(craftLoaded(craft));
             /*snapshot.forEach((doc) => {
             console.log(doc.id, '=>', doc.data());

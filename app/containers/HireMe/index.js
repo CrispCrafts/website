@@ -1,7 +1,6 @@
 import React from 'react';
 // import { FormattedMessage } from 'react-intl';
 import styled, {keyframes} from 'styled-components';
-import { projects } from 'utils/mock-projects';
 import languageColor from 'utils/language-colors';
 
 const riseUp = keyframes`

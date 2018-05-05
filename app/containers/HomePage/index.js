@@ -35,7 +35,8 @@ import {
   makeSelectCategories,
   makeSelectLoadingCategories,
   makeSelectLoadingCrafts,
-  makeSelectError
+  makeSelectError,
+  makeSelectLocation,
 } from 'containers/App/selectors';
 
 const riseUp = keyframes`
@@ -73,27 +74,40 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   generateChildren = (c) => <CraftCard key={c.id} {...c} />;
 
   componentDidMount() {
-    console.log("MOUNTES");
     this.props.loadCategories();
     this.props.loadCrafts();
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log("UPDATE");
+    console.log(nextProps.categories);
+    console.log(nextProps.loadingCategories);
+  }
+
   render() {
+    const {
+      category,
+      categories,
+      loadingCategories,
+      onChangeCategory,
+      crafts
+    } = this.props;
+    
     return (
       <Wrapper>
         <AppHeader
-          loadingCategories={this.props.loadingCategories}
-          categories={this.props.categories}
-          category={this.props.category}
-          onChangeCategory={this.props.onChangeCategory}/>
+          loadingCategories={loadingCategories}
+          categories={categories}
+          category={category}
+          onChangeCategory={onChangeCategory}/>
         <Grid>
           {
-            /*(this.props.crafts.filter((x) => {
-              if (!x.hide && this.props.category === 'All') {
+            crafts.filter((x) => {
+              if ((!x.hide || !x.tags) && category === 'All') {
                 return true;
               }
-              return !x.hide && x.tags.indexOf(this.props.category) > -1;
-            }).map(this.generateChildren)*/
+              return x.tags && (!x.hide && x.tags.indexOf(category) > -1);
+            }).map(this.generateChildren)
           }
         </Grid>
         <Fab />
@@ -102,21 +116,35 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
 }
 
+/*
+.filter((x) => {
+    if (!x.hide && this.props.category === 'All') {
+      return true;
+    }
+    return !x.hide && x.tags.indexOf(this.props.category) > -1;
+  })
+*/
+
+/*
 HomePage.propTypes = {
   loadingCategories: PropTypes.bool,
   loadingCrafts: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  crafts: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
+  error: PropTypes.string,
+  crafts: PropTypes.array,
   categories: PropTypes.array,
   loadCategories: PropTypes.func,
+  loadCrafts: PropTypes.func,
   onChangeCategory: PropTypes.func,
 };
+*/
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onChangeCategory: (category) => dispatch(changeCategory(category)),
+    loadCategories: () => dispatch(loadCategories()),
+    loadCrafts: () => dispatch(loadCrafts()),
+  };
+}
 
 HomePage.defaultProps = {
   category: 'All',
@@ -130,30 +158,22 @@ HomePage.defaultProps = {
   loadCrafts: () => {},
 };
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    onChangeCategory: (category) => dispatch(changeCategory(category)),
-    loadCategories: () => dispatch(loadCategories()),
-    loadCrafts: () => dispatch(loadCrafts())
-  };
-}
-
 const mapStateToProps = createStructuredSelector({
-  // categories: makeSelectCategories(),
- // category: makeSelectCategory(),
-  //crafts: makeSelectCrafts(),
-  // loadingCategories: makeSelectLoadingCategories(),
-  // loadingCrafts: makeSelectLoadingCrafts(),
-  // error: makeSelectError()
+  categories: makeSelectCategories(),
+  category: makeSelectCategory(),
+  crafts: makeSelectCrafts(),
+  loadingCategories: makeSelectLoadingCategories(),
+  loadingCrafts: makeSelectLoadingCrafts(),
+  error: makeSelectError(),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 // const withReducer = injectReducer({ key: 'home', reducer });
- const withSaga = injectSaga({ key: 'home', saga });
+const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(
-  // withReducer,
+//  withReducer,
   withSaga,
   withConnect,
 )(HomePage);

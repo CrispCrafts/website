@@ -176,7 +176,7 @@ export default class CraftSelector extends Component {
   }
 
   selectedCategory = (category) => {
-    console.log(category)
+    // console.log(category)
     switch (category) {
       case 'All':
         return 'EVERYTHING';

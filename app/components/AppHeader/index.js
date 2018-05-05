@@ -31,7 +31,7 @@ export default class AppHeader extends Component {
         <Logo src={chip} />
         <Title>{this.props.appName}</Title>
         {
-          this.props.loadingCategories &&
+          !this.props.loadingCategories &&
           <CraftsSelector
             categories={this.props.categories}
             category={this.props.category}
@@ -41,13 +41,6 @@ export default class AppHeader extends Component {
     );
   }
 }
-
-AppHeader.propTypes = {
-  children: PropTypes.node,
-  category: PropTypes.string,
-  categories: PropTypes.array,
-  loadingCategories: PropTypes.bool,
-};
 
 AppHeader.defaultProps = {
   loadingCategories: true,

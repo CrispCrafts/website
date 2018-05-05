@@ -6,7 +6,7 @@ import {
     LOAD_CATEGORIES_ERROR,
     LOAD_CRAFTS,
     LOAD_CRAFTS_SUCCESS,
-    LOAD_CRAFTS_ERROR
+    LOAD_CRAFTS_ERROR,
 } from './constants';
 
 const initialState = fromJS({
@@ -14,11 +14,12 @@ const initialState = fromJS({
     loadingCrafts: false,
     error: false,
     category: 'All',
-    categories: false,
+    categories: [],
     crafts: [],
 });
 
 function appReducer(state = initialState, action) {
+    console.log("NEW ACTION");
     switch (action.type) {
       case LOAD_CRAFTS:
         return state
@@ -26,7 +27,7 @@ function appReducer(state = initialState, action) {
             .set('loadingCrafts', true);
       case LOAD_CRAFTS_SUCCESS:
         return state
-            .set('crafts', action.crafts)
+            .set('crafts', [...action.crafts])
             .set('loadingCrafts', false);
       case LOAD_CRAFTS_ERROR:
         return state
@@ -39,10 +40,12 @@ function appReducer(state = initialState, action) {
         return state
           .set('loadingCategories', true)
           .set('error', false);
-      case LOAD_CATEGORIES_SUCCESS:
+      case LOAD_CATEGORIES_SUCCESS: {
+          console.log("HEKY");
         return state
           .set('loadingCategories', false)
           .set('categories', action.categories);
+      }
       case LOAD_CATEGORIES_ERROR:
         return state
           .set('error', action.error)
@@ -51,5 +54,5 @@ function appReducer(state = initialState, action) {
         return state;
     }
 }
-  
+
 export default appReducer;

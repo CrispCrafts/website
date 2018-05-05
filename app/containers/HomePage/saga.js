@@ -3,14 +3,46 @@ import 'firebase/firestore';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { categoriesLoaded, categoriesLoadedError, craftsLoaded, craftsLoadedError } from '../App/actions';
 import { LOAD_CATEGORIES, LOAD_CRAFTS } from '../App/constants';
+import { makeSelectCategory } from '../App/selectors';
 
 const firestore = firebase.firestore();
+
 const CONFIG = firestore.collection('crisp').doc('config');
 const CRAFTS = firestore.collection('crafts');
 
+const categories = () => new Promise((resolve, reject) => {
+    CONFIG.get().then(doc => {
+        resolve(doc);
+    }).catch(err => {
+        reject(err);
+    });
+});
+
+const crafts = () => new Promise((resolve, reject) => {
+    CRAFTS.get().then(snapshot => {
+        let docs = [];
+        snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data());
+            docs.push({...doc.data(), ["id"]: doc.id});
+        });
+        resolve(docs);
+    }).catch(err => {
+        reject(err);
+    });
+});
+
 export function* getCategories() {
-    console.log("GET CATEGORIES");
-    yield CONFIG.get().then(doc => {
+    // console.log("GET CATEGORIES");
+    const confDoc = yield categories();
+
+    if (!confDoc.exists) {
+        console.log("DOESNT EXIST");
+        yield put(categoriesError(confDoc));
+    } else {
+        yield put(categoriesLoaded(confDoc.data()['categories']));
+    }
+
+    /*yield CONFIG.get().then(doc => {
         if (!doc.exists) {
             console.log("NO DOC CONF");
             put(categoriesLoadedError('No such document'));
@@ -20,12 +52,14 @@ export function* getCategories() {
         }
     }).catch(err => {
         put(categoriesLoadedError(err));
-    });
+    });*/
 }
 
 export function* getCrafts() {
-    console.log("GET CRAFTS");
-    yield CRAFTS.get().then(snapshot => {
+    // console.log("GET CRAFTS");
+    // const category = yield select(makeSelectCategory());
+    // console.log(category);
+    /*yield CRAFTS.get().then(snapshot => {
         let docs = [];
         snapshot.forEach(doc => {
             console.log(doc.id, '=>', doc.data());
@@ -34,7 +68,16 @@ export function* getCrafts() {
         put(craftsLoaded(docs));
     }).catch(err => {
         put(craftsLoadedError(err));
-    });
+    });*/
+    const receivedCrafts = yield crafts();
+
+    if (!receivedCrafts) {
+        console.log("DOESNT EXIST");
+        yield put(craftsLoadedError("No crafts"));
+    } else {
+        console.log(receivedCrafts);
+        yield put(craftsLoaded(receivedCrafts));
+    }
 }
 
 export default function* crispData() {

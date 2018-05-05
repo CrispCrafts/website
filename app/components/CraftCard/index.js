@@ -312,6 +312,7 @@ CraftCard.defaultProps = {
   sub: '',
   tags: [],
   technologies: [],
+  languages: [],
   theme: '#C62828',
   textColor: '#212121',
   color: '#fff',
