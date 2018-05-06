@@ -9,21 +9,35 @@
  * the linting exception.
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 // import { FormattedMessage } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 // import messages from './messages';
 import CraftCard from 'components/CraftCard';
 import AppHeader from 'components/AppHeader';
 import Fab from 'components/Fab';
-import { projects } from 'utils/mock-projects';
+// import { projects } from 'utils/mock-projects';
+
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { changeCategory } from './actions';
-import { makeSelectCategory } from './selectors';
-import reducer from './reducer';
-
+import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import {
+  changeCategory,
+  loadCategories,
+  loadCrafts,
+} from 'containers/App/actions';
+import saga from './saga';
+import {
+  makeSelectCrafts,
+  makeSelectCategory,
+  makeSelectCategories,
+  makeSelectLoadingCategories,
+  makeSelectLoadingCrafts,
+  makeSelectError,
+  makeSelectLocation,
+} from 'containers/App/selectors';
 
 const riseUp = keyframes`
   0% {
@@ -59,17 +73,40 @@ const Grid = styled.div`
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function  
   generateChildren = (c) => <CraftCard key={c.id} {...c} />;
 
+  componentDidMount() {
+    this.props.loadCategories();
+    this.props.loadCrafts();
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log("UPDATE");
+    console.log(nextProps.categories);
+    console.log(nextProps.loadingCategories);
+  }
+
   render() {
+    const {
+      category,
+      categories,
+      loadingCategories,
+      onChangeCategory,
+      crafts
+    } = this.props;
+    
     return (
       <Wrapper>
-        <AppHeader category={this.props.category} onChangeCategory={this.props.onChangeCategory}/>
+        <AppHeader
+          loadingCategories={loadingCategories}
+          categories={categories}
+          category={category}
+          onChangeCategory={onChangeCategory}/>
         <Grid>
           {
-            this.props.cards.filter((x) => {
-              if (!x.hide && this.props.category === 'All') {
+            crafts.filter((x) => {
+              if ((!x.hide || !x.tags) && category === 'All') {
                 return true;
               }
-              return !x.hide && x.tags.indexOf(this.props.category) > -1;
+              return x.tags && (!x.hide && x.tags.indexOf(category) > -1);
             }).map(this.generateChildren)
           }
         </Grid>
@@ -79,26 +116,55 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   }
 }
 
-HomePage.defaultProps = {
-  category: 'All',
-  cards: projects,
+/*
+HomePage.propTypes = {
+  loadingCategories: PropTypes.bool,
+  loadingCrafts: PropTypes.bool,
+  error: PropTypes.string,
+  crafts: PropTypes.array,
+  categories: PropTypes.array,
+  loadCategories: PropTypes.func,
+  loadCrafts: PropTypes.func,
+  onChangeCategory: PropTypes.func,
 };
+*/
 
 export function mapDispatchToProps(dispatch) {
   return {
     onChangeCategory: (category) => dispatch(changeCategory(category)),
+    loadCategories: () => dispatch(loadCategories()),
+    loadCrafts: () => dispatch(loadCrafts()),
   };
 }
 
+HomePage.defaultProps = {
+  category: 'All',
+  categories: [],
+  crafts: [],
+  loadingCategories: false,
+  loadingCrafts: false,
+  error: false,
+  onChangeCategory: () => {},
+  loadCategories: () => {},
+  loadCrafts: () => {},
+};
+
 const mapStateToProps = createStructuredSelector({
+  categories: makeSelectCategories(),
   category: makeSelectCategory(),
+  crafts: makeSelectCrafts(),
+  loadingCategories: makeSelectLoadingCategories(),
+  loadingCrafts: makeSelectLoadingCrafts(),
+  error: makeSelectError(),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'home', reducer });
+// const withReducer = injectReducer({ key: 'home', reducer });
+const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(
-  withReducer,
+//  withReducer,
+  withSaga,
   withConnect,
 )(HomePage);

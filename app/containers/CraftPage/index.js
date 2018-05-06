@@ -1,8 +1,25 @@
 import React from 'react';
 // import { FormattedMessage } from 'react-intl';
-import styled, {keyframes} from 'styled-components';
-import { projects } from 'utils/mock-projects';
+import styled, { keyframes } from 'styled-components';
 import languageColor from 'utils/language-colors';
+import ReactMarkdown from 'react-markdown';
+
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import saga from './saga';
+import reducer from './reducer';
+import {
+  loadCraft,
+  removeCraft,
+} from './actions';
+import {
+  makeSelectCraft,
+  makeSelectLoadingCraft,
+  makeSelectError,
+} from './selectors';
 
 const riseUp = keyframes`
   0% {
@@ -12,6 +29,15 @@ const riseUp = keyframes`
   100% {
     opacity: 1;
     transform: translateY(0%);
+  }
+`;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 `;
 
@@ -29,11 +55,13 @@ const Icon = styled.div`
 `;
 
 const Action = styled.a`
-  margin: 8px;
+  margin-right: 8px;
   cursor: pointer;
   color: inherit;
+  font-size: 32px;
   text-decoration: none;
   transition: all 200ms ease-in;
+  color: #ef9a9a;
   &:hover {
     color: #FFEB3B;
   }
@@ -47,6 +75,7 @@ const Image = styled.div`
   height: 400px;
   border-radius: 5px;
   margin: 20px 0px;
+  animation: ${fadeIn} ease-in 200ms;
 `;
 
 const Wrapper = styled.div`
@@ -125,28 +154,15 @@ const Tag = styled.div`
   border-radius: 5px;
 `;
 
-export default class CraftPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props){
-    super(props);
-    this.state = {
-      id: '',
-      title: '',
-      sub: '',
-      technologies: [],
-      tags: [],
-      languages: [],
-    };
-  }
+class CraftPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
-    this.getCraft(this.props.match.params.craft);
+    this.props.loadCraft(this.props.match.params.craft);
   }
 
-  getCraft = (id) => {
-    const c = projects.filter(x => x.id === id)[0] || {};
-    console.log(c);
-    this.setState({...c});
-  };
+  componentWillUnmount() {
+    this.props.removeCraft();
+  }
 
   generateLanguageColors = (languages = []) => {
     return languages.map((l) => {
@@ -168,50 +184,96 @@ export default class CraftPage extends React.PureComponent { // eslint-disable-l
       );
     });
   }
-  
+
   render() {
     const {
       title,
       sub,
       tags,
       languages,
-      technologies
-    } = this.state;
-
+      technologies,
+      theme,
+      icon,
+      feature,
+      featureSize,
+      link,
+      git,
+      readme
+    } = this.props.craft;
+    console.log(featureSize);
     return (
       <Wrapper theme={'#FFEB3B'}>
         <Header>
-          <Icon background={this.state.theme} src={this.state.icon}></Icon>
+          <Icon background={theme} src={icon}></Icon>
           <Title>{title}</Title>
         </Header>
         {
-          this.state.feature &&
+          feature &&
           <Image
-            feature={this.state.feature}
-            background={this.state.theme}
-            featureSize={this.state.featureSize || 'cover'} />
+            feature={feature}
+            background={theme}
+            featureSize={featureSize || 'cover'}
+          />
         }
         <SameLine>
-          <Tech>{technologies.join(', ')}</Tech>
+          {
+            technologies &&
+              <Tech>{technologies.join(', ')}</Tech>
+          }
           <Languages>{this.generateLanguageColors(languages)}</Languages>
         </SameLine>
         <SubMessage>{sub}</SubMessage>
-        <Tags>{this.generateTags(tags)}</Tags>
         <div>
           {
-            this.state.link &&
-            <Action href={this.state.link} target="_blank" highlightColor={this.state.theme}>
+            link &&
+            <Action href={link} target="_blank" highlightColor={theme}>
               <i className="fas fa-link" />
             </Action>
           }
           {
-            (!this.state.private && this.state.git) &&
-            <Action href={this.state.git} target="_blank" highlightColor={this.state.theme}>
+            (git && !git.private && git.repo) &&
+            <Action href={git.repo} target="_blank" highlightColor={theme}>
               <i className="fab fa-github" />
             </Action>
           }
         </div>
+        <Tags>{this.generateTags(tags)}</Tags>
+        <ReactMarkdown
+          className="result"
+          source={readme}
+        />
       </Wrapper>
     );
   }
 }
+
+CraftPage.defaultProps = {
+  craftId: '',
+  craft: null,
+  loadingCraft: false,
+  error: false,
+};
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    loadCraft: (craftId) => dispatch(loadCraft(craftId)),
+    removeCraft: () => dispatch(removeCraft()),
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  craft: makeSelectCraft(),
+  loadingCraft: makeSelectLoadingCraft(),
+  error: makeSelectError(),
+});
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+const withReducer = injectReducer({ key: 'craftdetail', reducer });
+const withSaga = injectSaga({ key: 'craftdetail', saga });
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(CraftPage);

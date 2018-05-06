@@ -13,6 +13,7 @@
 
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
 import HomePage from '../HomePage/Loadable';
@@ -40,6 +41,12 @@ export default class App extends Component {
 
     return (
       <AppContainer>
+        <Helmet
+          titleTemplate="%s - CrispCrafts"
+          defaultTitle="CrispCrafts"
+        >
+          <meta name="description" content="CrispCrafts Website" />
+        </Helmet>
         <AppBar selected={this.state.selectedPage} />
         <AppPage style={{ background: this.state.theme }}>
           <Switch>

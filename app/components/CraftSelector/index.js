@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
-import {categories} from 'utils/mock-projects';
+// import {categories} from 'utils/mock-projects';
 
 const Bounce = keyframes`
   20%,
@@ -176,12 +176,14 @@ export default class CraftSelector extends Component {
   }
 
   selectedCategory = (category) => {
-    console.log(category)
+    // console.log(category)
     switch (category) {
       case 'All':
         return 'EVERYTHING';
-      case 'IoT':
+      case 'IOT':
         return 'I O T';
+      case 'App':
+        return 'APPS';
       default:
         if (category) {
           return category.toUpperCase();
@@ -191,36 +193,36 @@ export default class CraftSelector extends Component {
   }
 
   moveNext = (next) => {
-    let currentIndex = categories.indexOf(this.props.category);
+    let currentIndex = this.props.categories.indexOf(this.props.category);
     if (next) {
-      if (currentIndex < categories.length - 1) {
+      if (currentIndex < this.props.categories.length - 1) {
         this.setState({
           bounce: true,
         });
-        this.props.onChangeCategory(categories[currentIndex + 1]);
+        this.props.onChangeCategory(this.props.categories[currentIndex + 1]);
       } else {
         this.setState({
           bounce: true,
         });
-        this.props.onChangeCategory(categories[0]);
+        this.props.onChangeCategory(this.props.categories[0]);
       }
     } else {
       if (currentIndex > 0) {
         this.setState({
           bounce: true,
         });
-        this.props.onChangeCategory(categories[currentIndex - 1]);
+        this.props.onChangeCategory(this.props.categories[currentIndex - 1]);
       } else {
         this.setState({
           bounce: true,
         });
-        this.props.onChangeCategory(categories[categories.length - 1]);
+        this.props.onChangeCategory(this.props.categories[categories.length - 1]);
       }
     }
   }
 
   generateDots = () => {
-    return categories.map((c, indx) => {
+    return this.props.categories.map((c, indx) => {
     return (
         <DotLi
           key={c}
@@ -229,7 +231,7 @@ export default class CraftSelector extends Component {
               this.setState({
                 bounce: true,
               });
-              this.props.onChangeCategory(categories[indx]);
+              this.props.onChangeCategory(this.props.categories[indx]);
             }
           }}>
           <DotA selected={c === this.props.category} />
