@@ -200,7 +200,7 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
       git,
       readme
     } = this.props.craft;
-    console.log(featureSize);
+
     return (
       <Wrapper theme={'#FFEB3B'}>
         <Header>

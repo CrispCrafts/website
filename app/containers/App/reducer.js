@@ -19,7 +19,6 @@ const initialState = fromJS({
 });
 
 function appReducer(state = initialState, action) {
-    console.log("NEW ACTION");
     switch (action.type) {
       case LOAD_CRAFTS:
         return state

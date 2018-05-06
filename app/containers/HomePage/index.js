@@ -78,12 +78,6 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     this.props.loadCrafts();
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    console.log("UPDATE");
-    console.log(nextProps.categories);
-    console.log(nextProps.loadingCategories);
-  }
-
   render() {
     const {
       category,

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
-// import {categories} from 'utils/mock-projects';
 
 const Bounce = keyframes`
   20%,

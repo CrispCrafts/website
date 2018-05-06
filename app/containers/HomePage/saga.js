@@ -22,7 +22,7 @@ const crafts = () => new Promise((resolve, reject) => {
     CRAFTS.get().then(snapshot => {
         let docs = [];
         snapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data());
+            //console.log(doc.id, '=>', doc.data());
             docs.push({...doc.data(), ["id"]: doc.id});
         });
         resolve(docs);
@@ -35,8 +35,7 @@ export function* getCategories() {
     const confDoc = yield categories();
 
     if (!confDoc.exists) {
-        console.log("DOESNT EXIST");
-        yield put(categoriesError(confDoc));
+        yield put(categoriesError('categories do not exist'));
     } else {
         yield put(categoriesLoaded(confDoc.data()['categories']));
     }
@@ -47,10 +46,8 @@ export function* getCrafts() {
     const receivedCrafts = yield crafts();
 
     if (!receivedCrafts) {
-        console.log("DOESNT EXIST");
         yield put(craftsLoadedError("No crafts"));
     } else {
-        console.log(receivedCrafts);
         yield put(craftsLoaded(receivedCrafts));
     }
 }

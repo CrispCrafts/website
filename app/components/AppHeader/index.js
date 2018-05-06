@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
-import PropTypes from 'prop-types';
 import chip from '../../images/crumbs.png';
 import CraftsSelector from 'components/CraftSelector';
 

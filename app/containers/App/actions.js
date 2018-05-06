@@ -38,7 +38,7 @@ export function loadCategories() {
 }
   
 export function categoriesLoaded(categories) {
-    console.log(categories);
+    // console.log(categories);
     return {
       type: LOAD_CATEGORIES_SUCCESS,
       categories,

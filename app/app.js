@@ -18,17 +18,20 @@ import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 // Initialize Firebase
 import * as firebase from 'firebase';
+import 'firebase/firestore';
 
-var config = {
-  apiKey: "AIzaSyDrPHrXzeRwOkmFFttHMaB9oMelrVrOY2M",
-  authDomain: "crispcrafts-19cf6.firebaseapp.com",
-  databaseURL: "https://crispcrafts-19cf6.firebaseio.com",
-  projectId: "crispcrafts-19cf6",
-  storageBucket: "crispcrafts-19cf6.appspot.com",
-  messagingSenderId: "510860329226"
+const config = {
+  apiKey: 'AIzaSyDrPHrXzeRwOkmFFttHMaB9oMelrVrOY2M',
+  authDomain: 'crispcrafts-19cf6.firebaseapp.com',
+  databaseURL: 'https://crispcrafts-19cf6.firebaseio.com',
+  projectId: 'crispcrafts-19cf6',
+  storageBucket: 'crispcrafts-19cf6.appspot.com',
+  messagingSenderId: '510860329226',
 };
 
-var app = firebase.initializeApp(config);
+firebase.initializeApp(config);
+const settings = {/* your settings... */ timestampsInSnapshots: true };
+firebase.firestore().settings(settings);
 
 // Import root app
 import App from 'containers/App';
