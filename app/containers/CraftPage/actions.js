@@ -1,22 +1,30 @@
 import {
   LOAD_CRAFT,
+  REMOVE_CRAFT,
   LOAD_CRAFT_SUCCESS,
   LOAD_CRAFT_ERROR,
 } from './constants';
 
-export function loadCraft() {
+export function loadCraft(craftId) {
   // console.log("GET CRAFTS");
   return {
     type: LOAD_CRAFT,
+    craftId
   };
 }
 
-export function craftLoaded(crafts) {
+export function removeCraft() {
+  return {
+    type: REMOVE_CRAFT,
+  };
+}
+
+export function craftLoaded(craft) {
   // console.log("LOADED");
   // console.log(crafts);
   return {
     type: LOAD_CRAFT_SUCCESS,
-    crafts,
+    craft,
   };
 }
 

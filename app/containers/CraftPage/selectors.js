@@ -7,6 +7,11 @@ const makeSelectCraft = () => createSelector(
     (detailState) => detailState.get('craft')
 );
 
+const makeSelectCraftId = () => createSelector(
+    selectCraftDetail,
+    (detailState) => detailState.get('craftId')
+);
+
 const makeSelectLoadingCraft = () => createSelector(
     selectCraftDetail,
   (detailState) => detailState.get('loadingCraft')
@@ -22,4 +27,5 @@ export {
     makeSelectCraft,
     makeSelectLoadingCraft,
     makeSelectError,
+    makeSelectCraftId,
 };

@@ -180,8 +180,10 @@ export default class CraftSelector extends Component {
     switch (category) {
       case 'All':
         return 'EVERYTHING';
-      case 'IoT':
+      case 'IOT':
         return 'I O T';
+      case 'App':
+        return 'APPS';
       default:
         if (category) {
           return category.toUpperCase();

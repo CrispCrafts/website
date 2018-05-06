@@ -40,12 +40,10 @@ function appReducer(state = initialState, action) {
         return state
           .set('loadingCategories', true)
           .set('error', false);
-      case LOAD_CATEGORIES_SUCCESS: {
-          console.log("HEKY");
+      case LOAD_CATEGORIES_SUCCESS:
         return state
           .set('loadingCategories', false)
           .set('categories', action.categories);
-      }
       case LOAD_CATEGORIES_ERROR:
         return state
           .set('error', action.error)

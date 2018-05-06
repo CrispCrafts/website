@@ -8,7 +8,7 @@ import { makeSelectCategory } from '../App/selectors';
 const firestore = firebase.firestore();
 
 const CONFIG = firestore.collection('crisp').doc('config');
-const CRAFTS = firestore.collection('crafts');
+const CRAFTS = firestore.collection('crafts').orderBy('created', 'desc');
 
 const categories = () => new Promise((resolve, reject) => {
     CONFIG.get().then(doc => {
