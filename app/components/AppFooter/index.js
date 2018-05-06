@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import chip from '../../images/chip.png';
+import chip from 'images/chip.png';
 
 export default function AppFooter() {
   const Wrapper = styled.div`

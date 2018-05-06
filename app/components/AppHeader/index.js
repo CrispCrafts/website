@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
-import chip from '../../images/crumbs.png';
+import chip from 'images/crumbs.png';
 import CraftsSelector from 'components/CraftSelector';
 
 const Wrapper = styled.div`
