@@ -190,6 +190,13 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
 
   generateTech = (t, indx, arr) => indx === arr.length - 1 ? `${t}` : `${t}, `;
 
+  generateTime = (time) => {
+    /// var offset = time;
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const date = new Date(time.seconds * 1000);
+    return `${months[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`
+  };
+
   showMore = () => {
     this.setState({
       showMore: !this.state.showMore,
@@ -254,6 +261,14 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
           <div><strong>Languages:</strong> {this.props.languages.join(', ')}</div>
           <div><strong>Technologies:</strong> {this.props.technologies.join(', ')}</div>
           <div><strong>Tags:</strong> {this.props.tags.join(', ')}</div>
+          {
+            this.props.created &&
+              <div><strong>Created:</strong> {this.generateTime(this.props.created)}</div>
+          }
+          {
+            this.props.lastUpdate &&
+              <div><strong>Last Updated:</strong> {this.generateTime(this.props.lastUpdate)}</div>
+          }
           <QuickActions>
             <span>
               {
