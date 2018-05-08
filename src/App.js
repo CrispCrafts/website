@@ -12,7 +12,7 @@ class App extends Component {
           <h3 className="Name">Cristian Ponce</h3>
           <h3 className="Statement">Just an indie dev/student from California that likes to build stuff</h3>
           <h3 className="PS">Graduating May 2018 - Hire Me</h3>
-          <h4>Actual site is still under development</h4>
+          <h3><a href="http://develop.crispcrafts.com">Actual site is still under development<br/>feel free to check it out though!</a></h3>
         </header>
         <div className="App-intro">
           <div className="Section">
@@ -24,8 +24,8 @@ class App extends Component {
           </div>
           <div className="Section">
             <h1>Hire Me</h1>
-            <a target="blank" href="./files/CristianPonceResume.pdf" download>Resume - PDF</a>
-            <a target="blank" href="./files/CristianPonceResume.docx" download>Resume - DOCX</a>
+            <a target="blank" href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.pdf?alt=media">Resume - PDF</a>
+            <a target="blank" href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.docx?alt=media">Resume - DOCX</a>
           </div>
         </div>
         <div className="social" style={{fontSize: '1.5em'}}>
