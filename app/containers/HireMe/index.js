@@ -16,9 +16,11 @@ const riseUp = keyframes`
 
 const Title = styled.div`
   font-size: 2em;
+  color: white;
 `;
 
 const Sub = styled.div`
+    color: white;
     margin-top: 16px;
     margin-bottom: 8px;
 `;
@@ -33,7 +35,7 @@ const Wrapper = styled.div`
     font-weight: bolder;
     font-size: 1.5em;
     text-align: center;
-    color: ${props => props.theme};
+    color: #ffcdd2;
     animation: ${riseUp} ease-in-out 400ms;
 `;
 
@@ -53,13 +55,20 @@ const Icon = styled.a`
     color: #FFEB3B;
   }
 `;
+
 const ResIcon = styled.a`
   margin: 0 8px;
   color: #ef9a9a;
-  cursor: pointer;
   font-size: 32px;
-  &:hover {
+`;
+
+const IconButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+  &:hover ${ResIcon}, &:hover {
     color: #FFEB3B;
+    cursor: pointer;
   }
 `;
 
@@ -70,21 +79,32 @@ export default class HireMe extends React.PureComponent { // eslint-disable-line
 
   render() {
     return (
-      <Wrapper theme={'#FFEB3B'}>
+      <Wrapper>
           <Title>Hire Me</Title>
-          <Sub>Resume</Sub>
           <Icons>
-            <ResIcon href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.pdf?alt=media" target="_blank"><i className="fas fa-file-pdf" /></ResIcon>
-            <ResIcon href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.docx?alt=media" target="_blank"><i className="fas fa-file-alt"/></ResIcon>
+            <IconButton>
+              <Icon href="https://github.com/Cristian006" target="_blank"><i className="fab fa-github"/></Icon>
+              <div>GitHub</div>
+            </IconButton>
+            <IconButton>
+              <Icon href="https://www.linkedin.com/in/cristian-ponce006/" target="_blank"><i className="fab fa-linkedin"/></Icon>
+              <div>LinkedIn</div>
+            </IconButton>
+            <IconButton>
+              <Icon href="mailto:cristianrponce06@gmail.com"><i className="fas fa-envelope" /></Icon>
+              <div>Email</div>
+            </IconButton>
           </Icons>
-          <Sub>Find Me</Sub>
+          <Sub>Download My Resume</Sub>
           <Icons>
-            <Icon href="https://github.com/Cristian006" target="_blank"><i className="fab fa-github"/></Icon>
-            <Icon href="https://www.linkedin.com/in/cristian-ponce006/" target="_blank"><i className="fab fa-linkedin"/></Icon>
-          </Icons>
-          <Sub>Contact Me</Sub>
-          <Icons>
-            <Icon href="mailto:cristianrponce06@gmail.com"><i className="fas fa-envelope" /></Icon>
+            <IconButton>
+              <ResIcon href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.pdf?alt=media" target="_blank"><i className="fas fa-file-pdf" /></ResIcon>
+              <div>pdf</div>
+            </IconButton>
+            <IconButton>
+              <ResIcon href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.docx?alt=media" target="_blank"><i className="fas fa-file-alt"/></ResIcon>
+              <div>docx</div>
+            </IconButton>
           </Icons>
       </Wrapper>
     );

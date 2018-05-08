@@ -146,7 +146,7 @@ class AppBar extends Component {
             }
           </TitleSection>
           <NavItems>
-            <NavItem value={0} selected={this.props.location.pathname === '/'} to={'/'}>Home</NavItem>
+            <NavItem value={0} selected={this.props.location.pathname === '/'} to={'/'}>Crafts</NavItem>
             <NavItem value={1} selected={this.props.location.pathname === '/about'} to={'/about'}>About</NavItem>
             <NavItem value={2} selected={this.props.location.pathname === '/hireme'} to={'/hireme'}>Hire Me</NavItem>
           </NavItems>

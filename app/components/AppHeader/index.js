@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import chip from 'images/crumbs.png';
 import CraftsSelector from 'components/CraftSelector';
+// import LoadingIndicator from 'components/LoadingIndicator';
 
 const Wrapper = styled.div`
   padding: 24px;
@@ -29,13 +30,10 @@ export default class AppHeader extends Component {
       <Wrapper>
         <Logo src={chip} />
         <Title>{this.props.appName}</Title>
-        {
-          !this.props.loadingCategories &&
-          <CraftsSelector
-            categories={this.props.categories}
-            category={this.props.category}
-            onChangeCategory={this.props.onChangeCategory}/>
-        }
+        <CraftsSelector
+          categories={this.props.categories}
+          category={this.props.category}
+          onChangeCategory={this.props.onChangeCategory}/>
       </Wrapper>
     );
   }
