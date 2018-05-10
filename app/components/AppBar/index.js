@@ -81,17 +81,30 @@ class AppBar extends Component {
     this.state = {
       fixedNav: false,
       fixed: false,
+      open: false,
     };
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll, false);
     this.bar.addEventListener('animationend', this.handleAnimationEnd);
+    document.addEventListener('backbutton', this.onBackButtonPressed, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll, false);
     this.bar.removeEventListener('animationend', this.handleAnimationEnd);
+    document.addEventListener('backbutton', this.onBackButtonPressed, false);
+  }
+
+  onBackButtonPressed = () => {
+    if (this.state.open) {
+      this.setState({
+        open: false,
+      });
+    } else {
+      navigator.app.exitApp();
+    }
   }
 
   handleAnimationEnd = () => {
@@ -117,6 +130,12 @@ class AppBar extends Component {
     }
   }
 
+  openMenu = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
   render() {
     return (
       <Wrapper
@@ -140,12 +159,8 @@ class AppBar extends Component {
                 </LogoAccent>
               </span>
             </Title>
-            {
-              // this.state.fixedNav &&
-              // <CraftSelector small={true}/>
-            }
           </TitleSection>
-          <NavItems>
+          <NavItems openMenu={this.openMenu} open={this.state.open}>
             <NavItem value={0} selected={this.props.location.pathname === '/'} to={'/'}>Crafts</NavItem>
             <NavItem value={1} selected={this.props.location.pathname === '/about'} to={'/about'}>About</NavItem>
             <NavItem value={2} selected={this.props.location.pathname === '/hireme'} to={'/hireme'}>Hire Me</NavItem>

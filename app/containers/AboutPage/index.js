@@ -87,7 +87,7 @@ export default class AboutPage extends React.PureComponent { // eslint-disable-l
   render() {
     return (
       <Wrapper>
-        <Title>Hi, my name is Cristian Ponce<Age title={`I'm ${this.state.age} years old`}><HighlightSpan>{this.state.age}</HighlightSpan>YO</Age></Title>
+        <Title>Hi, my name is Cristian Ponce&nbsp;<Age title={`I'm ${this.state.age} years old`}><HighlightSpan>{this.state.age}</HighlightSpan>YO</Age></Title>
         <div>Just a passionate dev from California that likes to build stuff :)</div>
         <div>Need help with an upcoming project or application? Looking for a new Hire?
         <br/>Have a look through some of my recent <Link to="/">crafts</Link> and consider <Link to="/hireme">hiring me</Link>!</div>
@@ -134,7 +134,7 @@ export default class AboutPage extends React.PureComponent { // eslint-disable-l
         }
         <Sub>Crisp Crafts, wtf?</Sub>
         <div>The name was derived from taking the first part of Cristian and my last initial P</div>
-        <div>Cristian Ponce <HighlightSpan>-&gt;</HighlightSpan> CrisP Crafts</div>
+        <div><HighlightSpan>Cris</HighlightSpan>tian <HighlightSpan>P</HighlightSpan>once <HighlightSpan>-&gt;</HighlightSpan> <HighlightSpan>CrisP</HighlightSpan> Crafts</div>
         <div>Pronounced: Cris P <HighlightSpan>-&gt;</HighlightSpan> Crispy <HighlightSpan>-&gt; /</HighlightSpan>ˈkrispē<HighlightSpan>/</HighlightSpan></div>
       </Wrapper>
     );

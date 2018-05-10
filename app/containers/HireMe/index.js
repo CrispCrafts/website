@@ -17,6 +17,7 @@ const riseUp = keyframes`
 const Title = styled.div`
   font-size: 2em;
   color: white;
+  margin-bottom: 24px;
 `;
 
 const Sub = styled.div`
@@ -45,30 +46,36 @@ const Icons = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 24px;
+  padding-bottom: 24px;
 `;
 
-const Icon = styled.a`
+const Icon = styled.div`
   margin: 0 8px;
-  color: #ef9a9a;
   cursor: pointer;
   &:hover {
     color: #FFEB3B;
   }
 `;
 
-const ResIcon = styled.a`
-  margin: 0 8px;
-  color: #ef9a9a;
+const ResIcon = styled(Icon)`
   font-size: 32px;
 `;
 
-const IconButton = styled.div`
+const IconButton = styled.a`
   display: flex;
   flex-direction: column;
+  color: #ef9a9a;
   padding: 0 24px;
-  &:hover ${ResIcon}, &:hover {
+  text-decoration: none;
+  &:hover ${Icon},
+  &:hover {
     color: #FFEB3B;
     cursor: pointer;
+  }
+  &:active,
+  &:link,
+  &:visited {
+    text-decoration: none;
   }
 `;
 
@@ -82,27 +89,27 @@ export default class HireMe extends React.PureComponent { // eslint-disable-line
       <Wrapper>
           <Title>Hire Me</Title>
           <Icons>
-            <IconButton>
-              <Icon href="https://github.com/Cristian006" target="_blank"><i className="fab fa-github"/></Icon>
+            <IconButton href="https://github.com/Cristian006" target="_blank">
+              <Icon><i className="fab fa-github"/></Icon>
               <div>GitHub</div>
             </IconButton>
-            <IconButton>
-              <Icon href="https://www.linkedin.com/in/cristian-ponce006/" target="_blank"><i className="fab fa-linkedin"/></Icon>
+            <IconButton href="https://www.linkedin.com/in/cristian-ponce006/" target="_blank">
+              <Icon><i className="fab fa-linkedin"/></Icon>
               <div>LinkedIn</div>
             </IconButton>
-            <IconButton>
-              <Icon href="mailto:cristianrponce06@gmail.com"><i className="fas fa-envelope" /></Icon>
+            <IconButton href="mailto:cristianrponce06@gmail.com">
+              <Icon><i className="fas fa-envelope" /></Icon>
               <div>Email</div>
             </IconButton>
           </Icons>
           <Sub>Download My Resume</Sub>
           <Icons>
-            <IconButton>
-              <ResIcon href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.pdf?alt=media" target="_blank"><i className="fas fa-file-pdf" /></ResIcon>
+            <IconButton href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.pdf?alt=media" target="_blank">
+              <ResIcon><i className="fas fa-file-pdf" /></ResIcon>
               <div>pdf</div>
             </IconButton>
-            <IconButton>
-              <ResIcon href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.docx?alt=media" target="_blank"><i className="fas fa-file-alt"/></ResIcon>
+            <IconButton href="https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2FCristianPonceResume.docx?alt=media" target="_blank">
+              <ResIcon><i className="fas fa-file-alt"/></ResIcon>
               <div>docx</div>
             </IconButton>
           </Icons>

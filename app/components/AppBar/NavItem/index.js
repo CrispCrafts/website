@@ -18,16 +18,16 @@ const Wrapper = styled(NavLink)`
     background-size: 100% 2px, auto;
     color: white;
   }
+  @media (max-width: 700px) {
+    font-size: 24px;
+    width: 100%;
+  }
 `;
 
 export default function NavItem(props) {
 
   return (
-    <Wrapper onClick={(e) => {
-      /*if(props.selected) {
-        e.preventDefault();
-      }*/
-    }} selected={props.selected} to={props.to}>
+    <Wrapper selected={props.selected} to={props.to}>
       {props.children}
     </Wrapper>
   );
