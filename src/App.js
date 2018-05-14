@@ -12,7 +12,7 @@ class App extends Component {
           <h3 className="Name">Cristian Ponce</h3>
           <h3 className="Statement">Just an indie dev/student from California that likes to build stuff</h3>
           <h3 className="PS">Graduating May 2018 - Hire Me</h3>
-          <h3><a href="http://develop.crispcrafts.com">Actual site is still under development<br/>feel free to check it out though!</a></h3>
+          <h3><a href="http://develop.crispcrafts.com">Actual site is still under development<br/>Please feel free to check it out though!</a></h3>
         </header>
         <div className="App-intro">
           <div className="Section">

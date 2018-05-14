@@ -103,3 +103,8 @@ a:hover {
   padding: 24px;
   color: #EF9A9A;
 }
+
+
+h3 a {
+  text-decoration: underline;
+}
