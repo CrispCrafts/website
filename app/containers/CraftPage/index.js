@@ -86,8 +86,8 @@ const Wrapper = styled.div`
   padding: 0 24px;
   padding-bottom: 24px;
   background: #E53935;
+  color: #ffcdd2;
   font-weight: bolder;
-  color: ${props => props.theme};
   animation: ${riseUp} ease-in-out 400ms;
 `;
 
@@ -98,6 +98,7 @@ const Title = styled.div`
 const SubMessage = styled.div`
   width: 100%;
   padding: 8px 0px;
+  font-style: italic;
   font-size: 1.5em;
 `;
 
@@ -198,7 +199,7 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
       featureSize,
       link,
       git,
-      readme
+      writeup
     } = this.props.craft;
 
     return (
@@ -223,6 +224,10 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
           <Languages>{this.generateLanguageColors(languages)}</Languages>
         </SameLine>
         <SubMessage>{sub}</SubMessage>
+        <ReactMarkdown
+          className="result"
+          source={writeup}
+        />
         <div>
           {
             link &&
@@ -238,10 +243,6 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
           }
         </div>
         <Tags>{this.generateTags(tags)}</Tags>
-        <ReactMarkdown
-          className="result"
-          source={readme}
-        />
       </Wrapper>
     );
   }
