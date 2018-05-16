@@ -155,6 +155,29 @@ const Tag = styled.div`
   border-radius: 5px;
 `;
 
+const ScreenShot = styled.div`
+  background-image: url(${props => props.url});
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  min-width: 300px;
+  min-height: 500px;
+  margin: 12px 12px 24px 12px;
+`;
+
+const ScreenShotGrid = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: auto;
+`;
+
+const SpaceBetween = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 class CraftPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   componentDidMount() {
@@ -170,9 +193,20 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
       return (
         <Lang key={l}>
           <LanColor color={languageColor(l)}/>
-          <span style={{paddingLeft: '10px'}}>{l}</span>
+          <span style={{ paddingLeft: '10px' }}>{l}</span>
         </Lang>
       );
+    });
+  };
+
+  generateScreenShots = (screenshots = []) => {
+    return screenshots.map((s) => {
+      if (s) {
+        return (
+          <ScreenShot key={s} url={s}></ScreenShot>
+        );
+      }
+      return null;
     });
   };
 
@@ -199,9 +233,11 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
       featureSize,
       link,
       git,
-      writeup
+      writeup,
+      screenshots,
     } = this.props.craft;
 
+    console.log(feature);
     return (
       <Wrapper theme={'#FFEB3B'}>
         <Header>
@@ -216,32 +252,39 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
             featureSize={featureSize || 'cover'}
           />
         }
-        <SameLine>
+        <ScreenShotGrid>
           {
-            technologies &&
-              <Tech>{technologies.join(', ')}</Tech>
+            this.generateScreenShots(screenshots)
           }
-          <Languages>{this.generateLanguageColors(languages)}</Languages>
-        </SameLine>
+        </ScreenShotGrid>
+        <SpaceBetween>
+          <SameLine>
+            {
+              technologies &&
+                <Tech>{technologies.join(', ')}</Tech>
+            }
+            <Languages>{this.generateLanguageColors(languages)}</Languages>
+          </SameLine>
+          <SameLine>
+              {
+                link &&
+                <Action href={link} target="_blank" highlightColor={theme}>
+                  <i className="fas fa-link" />
+                </Action>
+              }
+              {
+                (git && !git.private && git.repo) &&
+                <Action href={git.repo} target="_blank" highlightColor={theme}>
+                  <i className="fab fa-github" />
+                </Action>
+              }
+          </SameLine>
+        </SpaceBetween>
         <SubMessage>{sub}</SubMessage>
         <ReactMarkdown
           className="result"
           source={writeup}
         />
-        <div>
-          {
-            link &&
-            <Action href={link} target="_blank" highlightColor={theme}>
-              <i className="fas fa-link" />
-            </Action>
-          }
-          {
-            (git && !git.private && git.repo) &&
-            <Action href={git.repo} target="_blank" highlightColor={theme}>
-              <i className="fab fa-github" />
-            </Action>
-          }
-        </div>
         <Tags>{this.generateTags(tags)}</Tags>
       </Wrapper>
     );

@@ -215,7 +215,7 @@ export default class CraftSelector extends Component {
         this.setState({
           bounce: true,
         });
-        this.props.onChangeCategory(this.props.categories[categories.length - 1]);
+        this.props.onChangeCategory(this.props.categories[this.props.categories.length - 1]);
       }
     }
   }
