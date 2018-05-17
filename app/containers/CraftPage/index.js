@@ -21,6 +21,8 @@ import {
   makeSelectError,
 } from './selectors';
 
+import '../../markdown.css';
+
 const riseUp = keyframes`
   0% {
     opacity: 0;
@@ -119,6 +121,7 @@ const Lang = styled.span`
 const Languages = styled.div`
   font-size: 1.3em;
   font-weight: 600;
+  display: flex;
 `;
 
 const Tags = styled.div`
@@ -160,8 +163,8 @@ const ScreenShot = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 4px;
-  min-width: 300px;
-  min-height: 500px;
+  min-width: ${props => props.orientation === 'portrait' ? (props.featured ? '300px' : '175px') : (props.featured ? '500px' : '300px')};
+  min-height: ${props => props.orientation === 'portrait' ? (props.featured ? '500px' : '300px') : (props.featured ? '300px' : '175px')};
   margin: 12px 12px 24px 12px;
 `;
 
@@ -176,6 +179,11 @@ const ScreenShotGrid = styled.div`
 const SpaceBetween = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const DateCreated = styled.div`
+  font-size: 1.2em;
+  
 `;
 
 class CraftPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -199,12 +207,21 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
     });
   };
 
-  generateScreenShots = (screenshots = []) => {
-    return screenshots.map((s) => {
-      if (s) {
-        return (
-          <ScreenShot key={s} url={s}></ScreenShot>
-        );
+  generateTime = (time) => {
+    /// var offset = time;
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const date = new Date(time.seconds * 1000);
+    return `${months[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`
+  };
+
+  generateScreenShots = (featured, screenshots = [], min = 0, max) => {
+    return screenshots.map((s, index) => {
+      if ((max && index < max) || (min && index >= min)) {
+        if (s.url) {
+          return (
+            <ScreenShot key={s.url} url={s.url} orientation={s.orientation} featured={featured}></ScreenShot>
+          );
+        }
       }
       return null;
     });
@@ -235,9 +252,10 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
       git,
       writeup,
       screenshots,
+      created,
+      lastUpdate
     } = this.props.craft;
 
-    console.log(feature);
     return (
       <Wrapper theme={'#FFEB3B'}>
         <Header>
@@ -254,7 +272,7 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
         }
         <ScreenShotGrid>
           {
-            this.generateScreenShots(screenshots)
+            this.generateScreenShots(true, screenshots, 0, 3)
           }
         </ScreenShotGrid>
         <SpaceBetween>
@@ -282,10 +300,25 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
         </SpaceBetween>
         <SubMessage>{sub}</SubMessage>
         <ReactMarkdown
-          className="result"
+          className="markdown-body"
           source={writeup}
         />
+        <div>
+          {
+            created &&
+              <div><strong style={{color: 'white'}}>Craft Created:</strong> {this.generateTime(created)}</div>
+          }
+          {
+            lastUpdate &&
+              <div><strong style={{color: 'white'}}>Craft Last Updated:</strong> {this.generateTime(lastUpdate)}</div>
+          }
+        </div>
         <Tags>{this.generateTags(tags)}</Tags>
+        <ScreenShotGrid>
+          {
+            this.generateScreenShots(false, screenshots, 3)
+          }
+        </ScreenShotGrid>
       </Wrapper>
     );
   }

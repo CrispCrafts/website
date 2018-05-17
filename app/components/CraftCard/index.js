@@ -284,9 +284,11 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
                 </Action>
               }
             </span>
-            <Action onClick={() => {
-              this.props.history.push(`/crafts/${this.props.id}`);
-            }}>
+            <Action
+              onClick={() => {
+                this.props.history.push(`/crafts/${this.props.id}`);
+              }}
+            >
               More <i className="fas fa-chevron-right"></i>
             </Action>
           </QuickActions>

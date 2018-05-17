@@ -10,7 +10,7 @@ injectGlobal`
   }
 
   body {
-    font-family: monospace, Arial, sans-serif;
+    font-family: 'Dosis', monospace, sans-serif;
   }
 
   body.fontLoaded {
@@ -20,12 +20,6 @@ injectGlobal`
   #app {
     min-height: 100%;
     min-width: 100%;
-  }
-  
-  p,
-  label {
-    font-family: 'Donsis', serif;
-    line-height: 1.5em;
   }
 
   ::selection {
