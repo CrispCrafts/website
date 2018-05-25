@@ -1,106 +1,150 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import chip from '../../images/chip.png';
 import NavItems from './NavItems';
 import NavItem from './NavItem';
-import CraftSelector from './CraftSelector';
 
-export default class AppBar extends Component {
+const slideDown = keyframes`
+  0% {
+    transform:translateY(-100%)
+  }
+  100%{transform:translateY(0)}
+`;
+
+const slideUp = keyframes`
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-100%)}
+`;
+
+const Wrapper = styled.div`
+  z-index: 1000;
+  padding: 0;
+  top: 0;
+  position: ${props => props.fixedNav ? 'fixed' : 'absolute'};
+  width: 100%;
+  height: 70px;
+  color: white;
+  box-shadow: ${props => props.fixed ? '0 1px 1px rgba(0,0,0,.15)' : ''};
+  background-color: ${props => props.fixed ? '#C62828' : 'rgba(0,0,0,0)'};
+  animation: ${props => props.fixed ? `${slideDown} 300ms cubic-bezier(.165,.84,.44,1)` : ''};
+`;
+// ${props => props.fixedNav ? 'fixed' : 'absolute'}
+// `${slideUp} 300ms cubic-bezier(.165,.84,.44,1)`
+
+const Title = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  opacity: ${props => props.fixed ? 1 : 0};
+  height: ${props => props.fixed ? 'auto' : '100%'};
+  transition: all ease-in 200ms;
+`;
+
+const Container = styled.div`
+  height: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: ${props => props.fixed ? 'center' : 'flex-start'};
+  margin: 0 auto;
+  padding: ${props => props.fixed ? '0 2vw' : '20px 2vw'};
+`;
+
+const TitleSection = styled.div`
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  flex: 1;
+`;
+
+const Logo = styled.img`
+  width: 36px;
+  margin-right: 12px;
+`;
+
+const LogoAccent = styled.span`
+  color: #FFF176;
+`;
+
+class AppBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fixedNav: false,
+      fixed: false,
+      open: false,
     };
-    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll, false);
+    this.bar.addEventListener('animationend', this.handleAnimationEnd);
+    document.addEventListener('backbutton', this.onBackButtonPressed, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll, false);
+    this.bar.removeEventListener('animationend', this.handleAnimationEnd);
+    document.addEventListener('backbutton', this.onBackButtonPressed, false);
   }
 
-  handleScroll() {
-    if (window.scrollY > 60 && !this.state.fixedNav) {
+  onBackButtonPressed = () => {
+    if (this.state.open) {
       this.setState({
+        open: false,
+      });
+    } else {
+      navigator.app.exitApp();
+    }
+  }
+
+  handleAnimationEnd = () => {
+    this.setState({
+      fixed: this.state.fixedNav
+    });
+  }
+
+  handleScroll = () => {
+    let fixedPosition = 100;
+    if(this.props.location.pathname === '/') {
+      fixedPosition = 300;
+    }
+    if (window.scrollY > fixedPosition && !this.state.fixedNav) {
+      this.setState({
+        fixed: true,
         fixedNav: true,
       });
-    } else if (window.scrollY < 60 && this.state.fixedNav) {
+    } else if (window.scrollY < fixedPosition && this.state.fixedNav) {
       this.setState({
         fixedNav: false,
       });
     }
   }
 
+  openMenu = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
   render() {
-    const slideDown = keyframes`
-      0%{transform:translateY(-100%)}
-      100%{transform:translateY(0)}
-    `;
-
-    const Wrapper = styled.div`
-      z-index: 1000;
-      padding: 0;
-      top: 0;
-      position: ${this.state.fixedNav ? 'fixed' : 'absolute'};
-      width: 100%;
-      height: ${this.state.fixedNav ? '70px' : '150px'};
-      color: white;
-      box-shadow: ${this.state.fixedNav ? '0 1px 1px rgba(0,0,0,.15)' : ''};
-      background-color: ${this.state.fixedNav ? '#C62828' : '#E53935'};
-      transition: all 100ms ease-in;
-      animation: ${this.state.fixedNav ? `${slideDown} 420ms cubic-bezier(.165,.84,.44,1)` : ''};
-      @media (max-width: 700px) {
-        height: 70px;
-      }
-    `;
-
-    const Container = styled.div`
-      height: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-content: center;
-      align-items: ${this.state.fixedNav ? 'center' : 'flex-start'};
-      margin: 0 auto;
-      padding: ${this.state.fixedNav ? '0 4vw' : '20px 4vw'};
-    `;
-
-    const TitleSection = styled.div`
-      display: flex;
-      height: 100%;
-      justify-content: flex-start;
-      align-items: center;
-      align-content: center;
-      flex: 1;
-    `;
-
-    const Title = styled.div`
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      align-content: center;
-      font-size: 24px;
-      font-weight: 800;
-      height: ${this.state.fixedNav ? 'auto' : '100%'};
-    `;
-
-    const Logo = styled.img`
-      width: 36px;
-      margin-right: 12px;
-    `;
-
-    const LogoAccent = styled.span`
-      color: #FFF176;
-    `;
-
     return (
-      <Wrapper>
-        <Container>
+      <Wrapper
+        fixed={this.state.fixedNav}
+        fixedNav={this.state.fixed}
+        innerRef={(e) => {this.bar = e;}}>
+        <Container
+          fixed={this.state.fixedNav}>
           <TitleSection>
-            <Title>
+            <Title fixed={this.state.fixedNav}>
               <Logo src={chip} alt="CrispLogo" />
               <span>
                 Crisp
@@ -114,12 +158,11 @@ export default class AppBar extends Component {
                 </LogoAccent>
               </span>
             </Title>
-            <CraftSelector fixedNav={this.state.fixedNav} />
           </TitleSection>
-          <NavItems selected={this.props.selected}>
-            <NavItem value={0}>Home</NavItem>
-            <NavItem value={2}>About</NavItem>
-            <NavItem value={3}>Hire Me</NavItem>
+          <NavItems openMenu={this.openMenu} open={this.state.open}>
+            <NavItem value={0} selected={this.props.location.pathname === '/'} to={'/'}>Crafts</NavItem>
+            <NavItem value={1} selected={this.props.location.pathname === '/about'} to={'/about'}>About</NavItem>
+            <NavItem value={2} selected={this.props.location.pathname === '/hireme'} to={'/hireme'}>Hire Me</NavItem>
           </NavItems>
         </Container>
       </Wrapper>
@@ -131,28 +174,13 @@ AppBar.propTypes = {
   currentPage: PropTypes.string,
   children: PropTypes.node,
   selected: PropTypes.number,
+  fixedPosition: PropTypes.number,
+  hideSelector: PropTypes.bool,
 };
 
 AppBar.defaultProps = {
   currentPage: 'Crafts',
+  selected: 0,
+  hideSelector: false,
 };
-
-/*
- * box-shadow: ${this.state.fixedNav ? '0 1px 1px rgba(0,0,0,.15)' : ''};
- * border-bottom: ${this.state.fixedNav ? '' : '1px solid #D32F2F'};
- */
-
- /**
-  *   const Wrapper = styled.div`
-      z-index: 1000;
-      padding: 0;
-      top: 0;
-      position: ${this.state.fixedNav ? 'fixed' : 'absolute'};
-      width: 100%;
-      height:${this.state.fixedNav ? '70px' : '150px'};
-      color: white;
-      background-color: #E53935;
-      transition: all 100ms ease-in;
-      animation: ${this.state.fixedNav ? `${slideDown} 420ms cubic-bezier(.165,.84,.44,1)` : ''};
-  `;
-*/
+export default withRouter(AppBar);
