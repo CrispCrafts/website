@@ -16,29 +16,21 @@ import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
+import AppPage from 'components/AppPage';
 import HomePage from '../HomePage/Loadable';
 import CraftPage from '../CraftPage/Loadable';
 import AboutPage from '../AboutPage/Loadable';
 import HireMe from '../HireMe/Loadable';
 import NotFoundPage from '../NotFoundPage/Loadable';
-import AppBar, { NavItems, NavItem } from '../../components/AppBar';
+import AppBar from '../../components/AppBar';
 import AppFooter from '../../components/AppFooter';
-import AppPage from '../../components/AppPage';
+
+const AppContainer = styled.div`
+  overflow: hidden;
+`;
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedPage: 0,
-      theme: '#D32F2F',
-    };
-  }
-
   render() {
-    const AppContainer = styled.div`
-      overflow: hidden;
-    `;
-
     return (
       <AppContainer>
         <Helmet
@@ -47,8 +39,8 @@ export default class App extends Component {
         >
           <meta name="description" content="CrispCrafts Website" />
         </Helmet>
-        <AppBar selected={this.state.selectedPage} />
-        <AppPage style={{ background: this.state.theme }}>
+        <AppBar />
+        <AppPage>
           <Switch>
             <Route exact path="/crafts/:craft" component={CraftPage} />
             <Route exact path="/about" component={AboutPage} />

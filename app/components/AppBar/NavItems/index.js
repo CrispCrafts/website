@@ -43,9 +43,9 @@ const MenuButton = styled.div`
 
 const Vertical = styled.div`
   background: #C62828;
+  overflow: hidden;
   flex-direction: column;
   position: fixed;
-  overflow: hidden;
   top: 0;
   left: 0;
   bottom: 0;

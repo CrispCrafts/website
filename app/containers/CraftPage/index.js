@@ -1,5 +1,4 @@
 import React from 'react';
-// import { FormattedMessage } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
 import languageColor from 'utils/language-colors';
 import ReactMarkdown from 'react-markdown';

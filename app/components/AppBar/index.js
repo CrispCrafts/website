@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import chip from '../../images/chip.png';
 import NavItems from './NavItems';
 import NavItem from './NavItem';
-import { withRouter } from 'react-router-dom';
-import CraftSelector from 'components/CraftSelector';
 
 const slideDown = keyframes`
   0% {
