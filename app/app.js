@@ -54,7 +54,7 @@ import '!file-loader?name=[name].[ext]!./images/chip.png';
 import '!file-loader?name=[name].[ext]!./images/crumbs.png';
 import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
-import 'file-loader?name=[name].[ext]!./netlify.toml';
+import 'file-loader?name=[name].[ext]!./_redirects';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore from './configureStore';
