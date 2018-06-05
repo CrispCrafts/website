@@ -71,6 +71,16 @@ const DateSection = styled.div`
   width: 100%;
 `;
 
+const ProfileImage = styled.div`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2Fprofile.jpg?alt=media);
+  background-size: cover;
+  background-position: 100% 60%;
+  border: 5px dashed #ffeb3b;
+`;
+
 export default class AboutPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
@@ -87,6 +97,7 @@ export default class AboutPage extends React.PureComponent { // eslint-disable-l
   render() {
     return (
       <Wrapper>
+        <ProfileImage />
         <Title>Hi, my name is Cristian Ponce&nbsp;<Age title={`I'm ${this.state.age} years old`}><HighlightSpan>{this.state.age}</HighlightSpan>YO</Age></Title>
         <div>Just a passionate dev from California that likes to build stuff :)</div>
         <div>Need help with an upcoming project or application? Looking for a new Hire?

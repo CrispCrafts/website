@@ -160,9 +160,30 @@ class AppBar extends Component {
             </Title>
           </TitleSection>
           <NavItems openMenu={this.openMenu} open={this.state.open}>
-            <NavItem value={0} selected={this.props.location.pathname === '/'} to={'/'}>Crafts</NavItem>
-            <NavItem value={1} selected={this.props.location.pathname === '/about'} to={'/about'}>About</NavItem>
-            <NavItem value={2} selected={this.props.location.pathname === '/hireme'} to={'/hireme'}>Hire Me</NavItem>
+            <NavItem
+              value={0}
+              selected={this.props.location.pathname === '/'}
+              to={'/'}
+              open={this.openMenu}
+            >
+              Crafts
+            </NavItem>
+            <NavItem
+              value={1}
+              selected={this.props.location.pathname === '/about'}
+              to={'/about'}
+              open={this.openMenu}
+            >
+              About
+            </NavItem>
+            <NavItem
+              value={2}
+              selected={this.props.location.pathname === '/hireme'}
+              to={'/hireme'}
+              open={this.openMenu}
+            >
+              Hire Me
+            </NavItem>
           </NavItems>
         </Container>
       </Wrapper>

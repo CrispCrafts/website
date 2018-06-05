@@ -27,7 +27,11 @@ const Wrapper = styled(NavLink)`
 export default function NavItem(props) {
 
   return (
-    <Wrapper selected={props.selected} to={props.to}>
+    <Wrapper
+      selected={props.selected}
+      to={props.to}
+      onClick={props.open}
+    >
       {props.children}
     </Wrapper>
   );
