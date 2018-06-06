@@ -91,6 +91,7 @@ const Text = styled.div`
   animation-fill-mode: both;
   -webkit-transform-origin: center bottom;
   transform-origin: center bottom;
+  user-select: none;
 `;
 /*
   @media (max-width: 700px) {
