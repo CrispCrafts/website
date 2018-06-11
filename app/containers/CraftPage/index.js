@@ -164,14 +164,13 @@ const ScreenShot = styled.div`
   border-radius: 4px;
   min-width: ${props => props.orientation === 'portrait' ? (props.featured ? '300px' : '175px') : (props.featured ? '500px' : '300px')};
   min-height: ${props => props.orientation === 'portrait' ? (props.featured ? '500px' : '300px') : (props.featured ? '300px' : '175px')};
-  margin: 12px 12px 24px 12px;
+  margin: 12px 12px 0px 0px;
 `;
 
 const ScreenShotGrid = styled.div`
   display: flex;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
+  overflow: auto;
   height: auto;
 `;
 
@@ -213,14 +212,12 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
     return `${months[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`
   };
 
-  generateScreenShots = (featured, screenshots = [], min = 0, max) => {
+  generateScreenShots = (screenshots = []) => {
     return screenshots.map((s, index) => {
-      if ((max && index < max) || (min && index >= min)) {
-        if (s.url) {
-          return (
-            <ScreenShot key={s.url} url={s.url} orientation={s.orientation} featured={featured}></ScreenShot>
-          );
-        }
+      if (s.url) {
+        return (
+          <ScreenShot key={s.url} url={s.url} orientation={s.orientation} featured></ScreenShot>
+        );
       }
       return null;
     });
@@ -271,7 +268,7 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
         }
         <ScreenShotGrid>
           {
-            this.generateScreenShots(true, screenshots, 0, 3)
+            this.generateScreenShots(screenshots)
           }
         </ScreenShotGrid>
         <SpaceBetween>
@@ -283,18 +280,18 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
             <Languages>{this.generateLanguageColors(languages)}</Languages>
           </SameLine>
           <SameLine>
-              {
-                link &&
-                <Action href={link} target="_blank" highlightColor={theme}>
-                  <i className="fas fa-link" />
-                </Action>
-              }
-              {
-                (git && !git.private && git.repo) &&
-                <Action href={git.repo} target="_blank" highlightColor={theme}>
-                  <i className="fab fa-github" />
-                </Action>
-              }
+            {
+              link &&
+              <Action href={link} target="_blank" highlightColor={theme}>
+                <i className="fas fa-link" />
+              </Action>
+            }
+            {
+              (git && !git.private && git.repo) &&
+              <Action href={git.repo} target="_blank" highlightColor={theme}>
+                <i className="fab fa-github" />
+              </Action>
+            }
           </SameLine>
         </SpaceBetween>
         <SubMessage>{sub}</SubMessage>
@@ -313,11 +310,6 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
           }
         </div>
         <Tags>{this.generateTags(tags)}</Tags>
-        <ScreenShotGrid>
-          {
-            this.generateScreenShots(false, screenshots, 3)
-          }
-        </ScreenShotGrid>
       </Wrapper>
     );
   }
