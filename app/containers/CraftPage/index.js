@@ -157,14 +157,11 @@ const Tag = styled.div`
   border-radius: 5px;
 `;
 
-const ScreenShot = styled.div`
-  background-image: url(${props => props.url});
-  background-size: cover;
-  background-position: center;
+const ScreenShot = styled.img`
   border-radius: 4px;
-  min-width: ${props => props.orientation === 'portrait' ? (props.featured ? '300px' : '175px') : (props.featured ? '500px' : '300px')};
-  min-height: ${props => props.orientation === 'portrait' ? (props.featured ? '500px' : '300px') : (props.featured ? '300px' : '175px')};
-  margin: 12px 12px 0px 0px;
+  max-width: ${props => props.orientation === 'portrait' ? (props.featured ? '300px' : '175px') : (props.featured ? '500px' : '300px')};
+  margin: 0px 4px 0px 0px;
+  height: auto;
 `;
 
 const ScreenShotGrid = styled.div`
@@ -172,6 +169,11 @@ const ScreenShotGrid = styled.div`
   flex-wrap: no-wrap;
   overflow: auto;
   height: auto;
+  position: relative;
+  align-content: center;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
 `;
 
 const SpaceBetween = styled.div`
@@ -181,7 +183,6 @@ const SpaceBetween = styled.div`
 
 const DateCreated = styled.div`
   font-size: 1.2em;
-  
 `;
 
 class CraftPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -216,7 +217,7 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
     return screenshots.map((s, index) => {
       if (s.url) {
         return (
-          <ScreenShot key={s.url} url={s.url} orientation={s.orientation} featured></ScreenShot>
+          <ScreenShot key={s.url} src={s.url} orientation={s.orientation} featured></ScreenShot>
         );
       }
       return null;
@@ -266,11 +267,14 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
             featureSize={featureSize || 'cover'}
           />
         }
-        <ScreenShotGrid>
-          {
-            this.generateScreenShots(screenshots)
-          }
-        </ScreenShotGrid>
+        {
+          screenshots &&
+          <ScreenShotGrid>
+            {
+              this.generateScreenShots(screenshots)
+            }
+          </ScreenShotGrid>
+        }
         <SpaceBetween>
           <SameLine>
             {
@@ -281,9 +285,21 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
           </SameLine>
           <SameLine>
             {
-              link &&
-              <Action href={link} target="_blank" highlightColor={theme}>
+              (link && link.project) &&
+              <Action href={link.project} target="_blank" highlightColor={theme}>
                 <i className="fas fa-link" />
+              </Action>
+            }
+            {
+              (link && link.android) &&
+              <Action href={link.android} target="_blank" highlightColor={theme}>
+                <i className="fab fa-android" />
+              </Action>
+            }
+            {
+              (link && link.ios) &&
+              <Action href={link.ios} target="_blank" highlightColor={theme}>
+                <i className="fab fa-app-store-ios" />
               </Action>
             }
             {
@@ -295,10 +311,13 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
           </SameLine>
         </SpaceBetween>
         <SubMessage>{sub}</SubMessage>
-        <ReactMarkdown
-          className="markdown-body"
-          source={writeup}
-        />
+        {
+          writeup &&
+            <ReactMarkdown
+              className="markdown-body"
+              source={writeup}
+            />
+        }
         <div>
           {
             created &&

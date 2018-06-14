@@ -26,4 +26,21 @@ injectGlobal`
     background: #FFEA00;
     color: #F44336;
   }
+
+  ::-webkit-scrollbar {
+      width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0,0,0,0.4); 
+  }
 `;
