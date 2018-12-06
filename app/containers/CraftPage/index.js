@@ -10,6 +10,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import saga from './saga';
 import reducer from './reducer';
+import starman from './starman_privacy';
 import {
   loadCraft,
   removeCraft,
@@ -107,7 +108,7 @@ const LanColor = styled.span`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${props => props.color}
+  background-color: ${props => props.color};
 `;
 
 const Lang = styled.span`
@@ -186,12 +187,23 @@ const DateCreated = styled.div`
 `;
 
 class CraftPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      privacy: false,
+    };
+  }
   componentDidMount() {
+    if (this.props.location.search.indexOf('privacy_policy') !== -1) {
+      this.setState({
+        privacy: true,
+      });
+    }
     this.props.loadCraft(this.props.match.params.craft);
   }
 
   componentWillUnmount() {
+    this.setState({ privacy: false });
     this.props.removeCraft();
   }
 
@@ -235,6 +247,7 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
   }
 
   render() {
+    const { privacy } = this.state;
     const {
       title,
       sub,
@@ -312,7 +325,14 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
         </SpaceBetween>
         <SubMessage>{sub}</SubMessage>
         {
-          writeup &&
+          privacy &&
+            <ReactMarkdown
+              className="markdown-body"
+              source={starman}
+            />
+        }
+        {
+          (writeup && !privacy) &&
             <ReactMarkdown
               className="markdown-body"
               source={writeup}

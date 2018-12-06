@@ -77,7 +77,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           loadingCategories={loadingCategories}
           categories={categories}
           category={category}
-          onChangeCategory={onChangeCategory}/>
+          onChangeCategory={onChangeCategory} />
         <Grid>
           {
             crafts.filter((x) => {
