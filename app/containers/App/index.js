@@ -42,6 +42,7 @@ export default class App extends Component {
         <AppBar />
         <AppPage>
           <Switch>
+            <Route exact path="/crafts/:craft/privacy_policy" component={CraftPage} />
             <Route exact path="/crafts/:craft" component={CraftPage} />
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/hireme" component={HireMe} />

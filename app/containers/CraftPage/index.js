@@ -194,7 +194,7 @@ class CraftPage extends React.Component { // eslint-disable-line react/prefer-st
     };
   }
   componentDidMount() {
-    if (this.props.location.search.indexOf('privacy_policy') !== -1) {
+    if (this.props.location.pathname.indexOf('privacy_policy') !== -1) {
       this.setState({
         privacy: true,
       });
