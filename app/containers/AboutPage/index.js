@@ -55,7 +55,7 @@ const Link = styled(NavLink)`
 `;
 
 const HighlightSpan = styled.span`
-  color: #FFEB3B
+  color: #FFEB3B;
 `;
 
 const Age = styled.sup`
@@ -75,7 +75,7 @@ const ProfileImage = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-image: url(https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2Fprofile.jpg?alt=media);
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/crispcrafts-19cf6.appspot.com/o/resume%2Fprofile.png?alt=media);
   background-size: cover;
   background-position: 100% 60%;
   border: 5px dashed #ffeb3b;
