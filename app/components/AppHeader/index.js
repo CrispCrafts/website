@@ -6,7 +6,6 @@ import CraftsSelector from 'components/CraftSelector';
 
 const Wrapper = styled.div`
   padding: 24px;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +19,6 @@ const Title = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 100%;
   max-width: 150px;
 `;
 

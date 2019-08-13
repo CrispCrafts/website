@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 // import { FormattedMessage } from 'react-intl';
 import styled, { keyframes } from 'styled-components';
@@ -172,7 +172,7 @@ const QuickActions = styled.div`
   padding: 8px;
 `;
 
-export class CraftCard extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class CraftCard extends Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
@@ -186,6 +186,17 @@ export class CraftCard extends React.PureComponent { // eslint-disable-line reac
     this.setState({
       mounted: true,
     });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.id !== nextProps.id ||
+      nextState.mounted !== this.state.mounted ||
+      nextState.hovering !== this.state.hovering ||
+      nextState.showMore !== this.state.showMore ||
+      this.props.title !== nextProps.title) {
+      return true;
+    }
+    return false;
   }
 
   generateTech = (t, indx, arr) => indx === arr.length - 1 ? `${t}` : `${t}, `;

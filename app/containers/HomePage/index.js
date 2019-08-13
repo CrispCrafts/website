@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -35,11 +34,12 @@ const riseUp = keyframes`
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
-  min-height: 100%;
   background: #E53935;
   position: relative;
   animation: ${riseUp} ease-in-out 400ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 `;
 
 const Grid = styled.div`
@@ -60,6 +60,17 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   componentDidMount() {
     this.props.loadCategories();
     this.props.loadCrafts();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.crafts === nextProps.crafts
+      || this.props.loadingCategories !== nextProps.loadingCategories
+      || this.props.loadingCrafts !== nextProps.loadingCrafts
+      || this.props.categories !== nextProps.categories
+      || this.props.category !== nextProps.category) {
+      return true;
+    }
+    return false;
   }
 
   render() {
