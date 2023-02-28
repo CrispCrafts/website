@@ -38,6 +38,7 @@ export default class App extends Component {
           defaultTitle="CrispCrafts"
         >
           <meta name="description" content="CrispCrafts Website" />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5397547765886159" crossorigin="anonymous"></script>
         </Helmet>
         <AppBar />
         <AppPage>
